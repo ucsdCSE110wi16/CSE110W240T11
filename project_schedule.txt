@@ -1,0 +1,9 @@
+Week 4- basic tree structure for 20 question output figured out (Kallen and Jason)
+   UI swiping feature figured out (Yasy)
+   knowing/researching how to implement Yelp into our app (Gary and Simon)
+Week 5/6 - tree completed (Kallen and Jason)
+   UI swiping,scrolling/settings done (Yasy)
+   start Yelp coding within our app (Gary and Simon)
+Week 7/8/9/10 - connect full tree to swiping feature, connect Yelp searches to code/setting specifications, have         delete/undelete option done
+
+if we have time - include a suggestions tab, allow users to have a profile that connects to their facebook
