@@ -2,19 +2,27 @@ User Stories: EZ Eats
 
 As a user, I want an aesthetically pleasing display with bright colors to keep my interest.
 
+
 As a user, I want the app to be easily used, with simple navigation controls to be able to use it while walking in one hand. 
+
 
 As a user, I want to be able to find restaurants near me and in my price range to easily find affordable places to eat.
 
+
 As an indecisive person, I want to have a framework with which to decide what to eat so that I don't spend a lot of time quibbling over it.
+
 
 As a user, I want to be able to not see restaurants that I definitely don't want to eat at, so that I can focus on restaurants where I actually want to eat.
 
+
 As a user, I want to be able to go back a question, so that if I make a mistake, I can easily fix it.
+
 
 As a user, when I find out what food I want, I want places that serve that food so that I can eat it.
 
+
 As a user, if at the end the food isn't what I want, I want to be able to restart.
+
 
 As a user, I want to be able to include a restaurant that I earlier didn't want to, so that I can easily change which restaurants I don't want to eat at.
 
