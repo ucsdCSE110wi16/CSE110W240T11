@@ -1,4 +1,4 @@
-package edu.ucsd.cse110_team11.easyeats;
+package edu.ucsd.cse110_team11.ezeats;
 
 import org.junit.Test;
 

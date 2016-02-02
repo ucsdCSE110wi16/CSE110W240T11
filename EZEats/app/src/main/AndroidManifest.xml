@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.ucsd.cse110_team11.easyeats">
+    package="edu.ucsd.cse110_team11.ezeats">
 
     <application
         android:allowBackup="true"
