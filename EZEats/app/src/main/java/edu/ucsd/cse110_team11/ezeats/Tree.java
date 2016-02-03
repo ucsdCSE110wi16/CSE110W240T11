@@ -6,10 +6,18 @@ package edu.ucsd.cse110_team11.ezeats;
 public class Tree {
 
     private Node root;
-    private int size;
+    private int size = 0;
+    private String traversal = "";
 
     public Tree() {
+    }
 
+    public int getSize(){
+        return this.size;
+    }
+
+    public Node getRoot(){
+        return this.root;
     }
 
     public boolean isEmpty(){
@@ -43,5 +51,16 @@ public class Tree {
             node.setParent(parent);
             this.size ++;
         }
+    }
+
+    public void traverse(Node n){
+        if (n == null) return;
+        if (n.getLeftChild() != null) traverse(n.getLeftChild());
+        this.traversal += (n.getValue() + ",");
+        if (n.getRightChild() != null) traverse(n.getRightChild());
+    }
+
+    public String getTraversal(){
+        return this.traversal;
     }
 }
