@@ -28,13 +28,10 @@ public class ExampleLoadTask extends LoadBusinessesTask {
 
     @Override
     protected void onPostExecute(List<Business> result) {
-        if (success) {
+        if (result != null) {
             Business b0 = result.get(0);
             textView.setText(b0.name);
             imageView.setImageDrawable(b0.image);
-        }
-        else {
-            textView.setText((connectException == null) ? "Unknown Error" : "Connection Failure");
         }
     }
 }

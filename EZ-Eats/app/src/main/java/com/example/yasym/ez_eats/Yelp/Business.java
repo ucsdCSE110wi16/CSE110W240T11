@@ -3,60 +3,39 @@ package com.example.yasym.ez_eats.Yelp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 /**
  * Created by simon on 2/7/16.
  * <p/>
- * TODO is Drawable the appropriate type for images?
- * TODO using local assets instead of downloading images for ratingImageUrl, ...
- * TODO customzie deserializer so that urls are replaced with images
  */
 public class Business {
 
     public String name; // Name of this business
-
     public List<Category> categories; // Categories that this business is associated with.
 
     @SerializedName("display_phone")
     public String displayPhone;
-
     public String phone; // Phone number for this business formatted for display
-
     public double rating; // Rating for this business (value ranges from 1, 1.5, ... 4.5, 5)
-
     public Location location; // Location data for this business
-
     public Drawable image; // Photo for this business
 
     @SerializedName("snippet_text")
     public String snippetText; // Snippet text associated with this business
-
     public Drawable snippetImage; // URL of snippet image associated with this business
+    public Drawable ratingImage; // Star rating image for this business (size = 84x17)
+    public Drawable ratingImageSmall; // Small version of rating image for this business (size = 50x10)
+    public Drawable ratingImageLarge; // Large version of rating image for this business (size = 166x30)
+    public String id; // Yelp ID for this business
 
-    private String id; // Yelp ID for this business // TODO is this entry necessary?
-
-    private String url; // for business page on Yelp
-
+    @SerializedName("mobile_url")
     private String mobileUrl; // for mobile business page on Yelp
-
-    @SerializedName("rating_img_url")
-    private String ratingImageUrl; // Star rating image for this business (size = 84x17)
-
-    @SerializedName("rating_img_url_small")
-    private String ratingImageUrlSmall; // Small version of rating image for this business (size = 50x10)
-
-    @SerializedName("rating_img_url_large")
-    private String ratingImageUrlLarge; // Large version of rating image for this business (size = 166x30)
+    private String url; // for business page on Yelp
 
     private static final String LOG_TAG = "Yelp.Business";
 
@@ -75,35 +54,9 @@ public class Business {
         return null;
     }
 
-    public Drawable getRatingImage() {
-        return getImage(ratingImageUrl);
-    }
-
-    public Drawable getLargeRatingImage() {
-        return getImage(ratingImageUrlLarge);
-    }
-
-    public Drawable getSmallRatingImage() {
-        return getImage(ratingImageUrlSmall);
-    }
-
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
-    }
-
-    private static Drawable getImage(JsonObject o, String memberName) {
-        return getImage(o.getAsJsonPrimitive(memberName).getAsString());
-    }
-
-    private static Drawable getImage(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).openConnection().getContent(new Class[]{InputStream.class});
-            return Drawable.createFromStream(is, null);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to load the image from the url: " + url);
-            return null;
-        }
     }
 
     /**

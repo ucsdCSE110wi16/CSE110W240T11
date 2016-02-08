@@ -15,8 +15,8 @@ import com.google.gson.JsonSyntaxException;
 
 import org.scribe.exceptions.OAuthConnectionException;
 
+import java.io.Reader;
 import java.lang.reflect.Type;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +60,8 @@ public class Yelp {
 
     private BaseAPI api;
     private Map<String, String> params;
+    private Gson gson;
+    private BusinessDeserializer deserializer;
 
     public Yelp() {
         this(DEFAULT_TERM, DEFAULT_CATEGORIES);
@@ -96,7 +98,7 @@ public class Yelp {
         }
         params.put("location", location);
         if (!categories.equals(DEFAULT_CATEGORIES)) {
-            params.put("category_filter", join(categories));
+            params.put("category_filter", joinCategoryAliases(categories));
         }
         if (offset != DEFAULT_OFFSET) {
             params.put("offset", String.valueOf(offset));
@@ -110,43 +112,45 @@ public class Yelp {
         if (limit != DEFAULT_LIMIT) {
             params.put("limit", String.valueOf(limit));
         }
+
+        deserializer = new BusinessDeserializer();
+        GsonBuilder builder = new GsonBuilder()
+                .registerTypeAdapter(Business.class, deserializer);
+        gson = builder.create();
     }
 
-    public List<Business> get() throws ConnectException {
-        String searchResponseJSON;
+    public List<Business> get() {
+        return get(true);
+    }
+
+    public List<Business> get(boolean loadImages) {
+        Reader searchResponse;
         try {
-            searchResponseJSON = api.searchForBusinesses(params);
+            searchResponse = api.searchForBusinesses(params);
         } catch (OAuthConnectionException e) {
             Log.e(LOG_TAG, "Failed to connect to Yelp server");
             Log.d(LOG_TAG, "Error: ", e);
-            throw new ConnectException("Failed to connect to Yelp server");
-        }
-
-        JsonParser parser = new JsonParser();
-        JsonObject response;
-        try {
-            response = (JsonObject) parser.parse(searchResponseJSON);
-        } catch (JsonSyntaxException e) {
-            Log.e(LOG_TAG, "Failed to parse JSON response: " + searchResponseJSON, e);
             return null;
         }
 
-        List<Business> ret = new ArrayList<>();
-        JsonArray businesses = response.getAsJsonArray("businesses");
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Category.class, new CategoryDeserializer()).create();
-        for (JsonElement e : businesses) {
+        List<Business> bs = new ArrayList<>();
+        JsonParser parser = new JsonParser();
+        JsonArray barr = ((JsonObject) parser.parse(searchResponse))
+                .getAsJsonArray("businesses");
+        deserializer.loadImages = loadImages;
+        for (JsonElement e : barr) {
             try {
                 Business b = gson.fromJson(e, Business.class);
-                ret.add(b);
-            } catch (NullPointerException ex) {
-                Log.w(LOG_TAG, "Incomplete data of business: " + e, ex);
+                bs.add(b);
+            } catch (JsonSyntaxException ex) {
+                Log.e(LOG_TAG, "Failed to parse JSON response: " + searchResponse, ex);
             }
         }
-        return ret;
+
+        return (bs.size() > 0) ? bs : null;
     }
 
-    private static String join(List<Category> list) {
+    private static String joinCategoryAliases(List<Category> list) {
         StringBuilder s = new StringBuilder();
         for (Category c : list) {
             s.append(c.alias);
@@ -156,6 +160,30 @@ public class Yelp {
             s.deleteCharAt(s.length() - 1);
         }
         return s.toString();
+    }
+
+    class BusinessDeserializer implements JsonDeserializer<Business> {
+
+        boolean loadImages;
+        Gson gson;
+
+        public BusinessDeserializer() {
+            this.loadImages = true;
+            this.gson = new GsonBuilder()
+                    .registerTypeAdapter(Category.class, new CategoryDeserializer()).create();
+        }
+
+        @Override
+        public Business deserialize(JsonElement json, Type typeOfT,
+                                    JsonDeserializationContext context) throws JsonParseException {
+            Business b = gson.fromJson(json, Business.class);
+//            TODO set rating images
+            if (loadImages) {
+                b.image = Utils.getImage((JsonObject) json, "image_url");
+                b.snippetImage = Utils.getImage((JsonObject) json, "snippet_image_url");
+            }
+            return b;
+        }
     }
 
     class CategoryDeserializer implements JsonDeserializer<Category> {
