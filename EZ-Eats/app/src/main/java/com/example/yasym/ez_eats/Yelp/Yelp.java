@@ -1,4 +1,4 @@
-package com.example.yasym.ez_eats.YelpTask.Yelp;
+package com.example.yasym.ez_eats.Yelp;
 
 import android.util.Log;
 
@@ -149,7 +149,7 @@ public class Yelp {
     private static String join(List<Category> list) {
         StringBuilder s = new StringBuilder();
         for (Category c : list) {
-            s.append(c.getAlias());
+            s.append(c.alias);
             s.append(',');
         }
         if (s.length() > 0) {

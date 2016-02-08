@@ -1,9 +1,9 @@
-package com.example.yasym.ez_eats.YelpTask;
+package com.example.yasym.ez_eats.Yelp.Task;
 
 import android.os.AsyncTask;
 
-import com.example.yasym.ez_eats.YelpTask.Yelp.Business;
-import com.example.yasym.ez_eats.YelpTask.Yelp.Yelp;
+import com.example.yasym.ez_eats.Yelp.Business;
+import com.example.yasym.ez_eats.Yelp.Yelp;
 
 import java.net.ConnectException;
 import java.util.List;
@@ -24,14 +24,13 @@ public class LoadBusinessesTask extends AsyncTask<Void, Void, List<Business>> {
     @Override
     protected List<Business> doInBackground(Void... params) {
         Yelp api = new Yelp();
-        List<Business> bs;
+        List<Business> bs = null;
         try {
             bs = api.get();
+            success = true;
         } catch (ConnectException e) {
             connectException = e;
-            return null;
         }
-        success = true;
         return bs;
     }
 

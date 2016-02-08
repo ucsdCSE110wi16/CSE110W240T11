@@ -1,23 +1,27 @@
-package com.example.yasym.ez_eats.YelpTask;
+package com.example.yasym.ez_eats.Yelp.Task;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.yasym.ez_eats.YelpTask.Yelp.Business;
-import com.example.yasym.ez_eats.YelpTask.Yelp.Yelp;
+import com.example.yasym.ez_eats.Yelp.Business;
+import com.example.yasym.ez_eats.Yelp.Yelp;
 
 import java.util.List;
 
 /**
  * Created by simon on 2/8/16.
  */
-public class LoadEntryTask extends LoadBusinessesTask {
+public class ExampleLoadTask extends LoadBusinessesTask {
 
     TextView textView;
     ImageView imageView;
 
-    public LoadEntryTask(TextView tv, ImageView iv) {
-        super(new Yelp());
+    public ExampleLoadTask(TextView tv, ImageView iv) {
+        this(tv, iv, new Yelp());
+    }
+
+    public ExampleLoadTask(TextView tv, ImageView iv, Yelp api) {
+        super(api);
         textView = tv;
         imageView = iv;
     }

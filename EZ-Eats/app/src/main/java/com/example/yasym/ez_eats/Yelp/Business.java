@@ -1,4 +1,4 @@
-package com.example.yasym.ez_eats.YelpTask.Yelp;
+package com.example.yasym.ez_eats.Yelp;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -23,26 +23,38 @@ import java.util.List;
  */
 public class Business {
 
-
     public String name; // Name of this business
+
     public List<Category> categories; // Categories that this business is associated with.
+
     @SerializedName("display_phone")
     public String displayPhone;
+
     public String phone; // Phone number for this business formatted for display
+
     public double rating; // Rating for this business (value ranges from 1, 1.5, ... 4.5, 5)
+
     public Location location; // Location data for this business
+
     public Drawable image; // Photo for this business
+
     @SerializedName("snippet_text")
     public String snippetText; // Snippet text associated with this business
+
     public Drawable snippetImage; // URL of snippet image associated with this business
 
     private String id; // Yelp ID for this business // TODO is this entry necessary?
+
     private String url; // for business page on Yelp
+
     private String mobileUrl; // for mobile business page on Yelp
+
     @SerializedName("rating_img_url")
     private String ratingImageUrl; // Star rating image for this business (size = 84x17)
+
     @SerializedName("rating_img_url_small")
     private String ratingImageUrlSmall; // Small version of rating image for this business (size = 50x10)
+
     @SerializedName("rating_img_url_large")
     private String ratingImageUrlLarge; // Large version of rating image for this business (size = 166x30)
 
@@ -101,15 +113,22 @@ public class Business {
 
         @SerializedName("display_address")
         public List<String> displayAddress; // Address for this business formatted for display. Includes all address fields, cross streets and city, state_code, etc.
+
         @SerializedName("cross_streets")
         public String crossStreets; // Cross streets for this business
+
         public List<String> address; // Address for this business. Only includes address fields.
+
         public List<String> neighborhoods; // List that provides neighborhood(s) information for business
+
         public String city; // City for this business
+
         @SerializedName("state_code")
         public String stateCode; // ISO 3166-2 state code for this business
+
         @SerializedName("postal_code")
         public String postalCode; // Postal code for this business
+
         @SerializedName("country_code")
         public String countryCode; // ISO 3166-1 country code for this business
 
