@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.yasym.ez_eats.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.example.yasym.ez_eats.MainActivity">
 
+
+    <ImageButton
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/startButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/start"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Status"
+        android:id="@+id/status"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
+
