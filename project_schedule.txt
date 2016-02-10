@@ -14,6 +14,7 @@ Tasks To Do: Implement Questionnaire Structure, Restaurant Listings, Ignored Res
 By the end of:
    Week 6:  Implement Questionnaire Structure, combined with Swiping Input (Kallen)
             Refine Swiping Input (Jason)
+            Restructure and Improve Design of Interface, Include a "home" screen (Yasy)
    Week 7:
    Week 8:  Working Full Prototype!
    Week 9:
