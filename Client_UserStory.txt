@@ -1,28 +1,32 @@
 User Stories: EZ Eats
 
-As a user, I want an aesthetically pleasing display with bright colors to keep my interest.
+User Interface Display
+As a user, I want an aesthetically pleasing display with bright colors so that I am visually engaged and interested.
 
+User Interface Controls
+As a user, I want the app to be easily used, with simple navigation controls so taht I can use it in one hand while walking. 
 
-As a user, I want the app to be easily used, with simple navigation controls to be able to use it while walking in one hand. 
+Location Functionality
+As a user, I want to be able to find restaurants near me so that I can easily find places to eat.
 
+Price Functionality
+As a user, I want to be able to find restaurants within a certain price range, so that I only spend as much as I can afford.
 
-As a user, I want to be able to find restaurants near me and in my price range to easily find affordable places to eat.
-
-
+Having a Questionnaire
 As an indecisive person, I want to have a framework with which to decide what to eat so that I don't spend a lot of time quibbling over it.
 
-
+Ignoring Restaurants
 As a user, I want to be able to not see restaurants that I definitely don't want to eat at, so that I can focus on restaurants where I actually want to eat.
 
-
+Undoing Questionnaire Answer
 As a user, I want to be able to go back a question, so that if I make a mistake, I can easily fix it.
 
-
+Food Functionality
 As a user, when I find out what food I want, I want places that serve that food so that I can eat it.
 
+Restart Questionnaire
+As a user, if at the end the food isn't what I want, I want to be able to restart so that it is easy to redo.
 
-As a user, if at the end the food isn't what I want, I want to be able to restart.
-
-
+Edit Ignored Restaurants
 As a user, I want to be able to include a restaurant that I earlier didn't want to, so that I can easily change which restaurants I don't want to eat at.
 
