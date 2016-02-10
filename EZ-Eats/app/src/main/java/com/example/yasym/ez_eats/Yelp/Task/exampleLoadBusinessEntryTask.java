@@ -11,16 +11,16 @@ import java.util.List;
 /**
  * Created by simon on 2/8/16.
  */
-public class ExampleLoadTask extends LoadBusinessesTask {
+public class exampleLoadBusinessEntryTask extends LoadBusinessesTask {
 
     TextView textView;
     ImageView imageView;
 
-    public ExampleLoadTask(TextView tv, ImageView iv) {
+    public exampleLoadBusinessEntryTask(TextView tv, ImageView iv) {
         this(tv, iv, new Yelp());
     }
 
-    public ExampleLoadTask(TextView tv, ImageView iv, Yelp api) {
+    public exampleLoadBusinessEntryTask(TextView tv, ImageView iv, Yelp api) {
         super(api);
         textView = tv;
         imageView = iv;
@@ -30,6 +30,8 @@ public class ExampleLoadTask extends LoadBusinessesTask {
     protected void onPostExecute(List<Business> result) {
         if (result != null) {
             Business b0 = result.get(0);
+            System.out.println("Got " + result.size() + " businesses.");
+            System.out.println("The first one is \"" + b0.name + "\"");
             textView.setText(b0.name);
             imageView.setImageDrawable(b0.image);
         }

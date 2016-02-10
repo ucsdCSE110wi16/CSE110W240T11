@@ -23,31 +23,43 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by simon on 2/6/16.
+ * The Yelp API.
  * <p/>
+ * Usage:
+ * on main thread: {@link com.example.yasym.ez_eats.Yelp.Task.LoadBusinessesTask}
+ * on non-main thread: {@code
+ * Yelp api = new Yelp("pizza");
+ * List<Business> bs = api.get();
+ * if (bs.size() > 0) {
+ * System.out.println(bs.get(0).name);
+ * }
+ * }
+ * <p/>
+ * Created by simon on 2/6/16.
  */
 public class Yelp {
 
-    // Search term (e.g. "food", "restaurants"). If term isn’t included we search everything.
-    // The term keyword also accepts business names such as "Starbucks".
+    public enum Sort {
+        BEST_MATCHED(0),
+        DISTANCE(1),
+        HIGHEST_RATED(2);
+
+        int value;
+
+        Sort(int value) {
+            this.value = value;
+        }
+    }
+
     private static final String DEFAULT_TERM = "";
-
-    // Number of business results to return
     private static final int DEFAULT_LIMIT = -1; // maximum is 20
-
-    // Offset the list of returned business results by this amount
     private static final int DEFAULT_OFFSET = 0;
-
-    // Category to filter search results with. See the list of supported categories. TODO attach parsed categories
-    // Categories are "or"ed.
+    // TODO attach parsed categories
     private static final List<Category> DEFAULT_CATEGORIES = new ArrayList<>();
-
-    // Search radius in meters. If the value is too large, a AREA_TOO_LARGE error may be returned.
     // TODO maybe we could set two default radii for users with and without car
     private static final int DEFAULT_RADIUS = -1; // maximum is 40000 meters (= 25 miles)
-
-    // Whether to exclusively search for businesses with deals
     private static final boolean DEFAULT_DEALS = false; // default is false
+    private static final Sort DEFAULT_SORT = Sort.BEST_MATCHED;
 
     private static final String PRESET_LOCATION = "La Jolla, CA";
 
@@ -80,10 +92,34 @@ public class Yelp {
     }
 
     public Yelp(String term, List<Category> categories, int radius) {
-        this(term, categories, radius, null, DEFAULT_OFFSET, DEFAULT_DEALS, DEFAULT_LIMIT);
+        this(term, categories, radius, null, DEFAULT_SORT, DEFAULT_OFFSET, DEFAULT_DEALS, DEFAULT_LIMIT);
     }
 
-    public Yelp(String term, List<Category> categories, int radius, String location, int offset, boolean deals, int limit) {
+    /**
+     * Build a Yelp API object.
+     *
+     * @param term       Search term (e.g. "food", "restaurants"). If term isn’t included we search
+     *                   everything. The term keyword also accepts business names such as "Starbucks".
+     * @param categories Category to filter search results with. See the list of supported categories.
+     *                   Categories are "or"ed.
+     * @param radius     Search radius in meters. If the value is too large, a AREA_TOO_LARGE error may be
+     *                   returned.
+     * @param location   Location to find businesses. Pass null to use the current GPS location
+     * @param sort       Sort mode: Best matched (default), Distance, Highest Rated. If the mode is Distance
+     *                   or Highest Rated a search may retrieve an additional 20 businesses past the initial
+     *                   limit of the first 20 results. This is done by specifying an offset and limit of 20.
+     *                   Sort by distance is only supported for a location or geographic search. The rating
+     *                   sort is not strictly sorted by the rating value, but by an adjusted rating value
+     *                   that
+     *                   takes into account the number of ratings, similar to a bayesian average. This is so
+     *                   a
+     *                   business with 1 rating of 5 stars doesn’t immediately jump to the top.
+     * @param offset     Offset the list of returned business results by this amount
+     * @param deals      Whether to exclusively search for businesses with deals
+     * @param limit      Number of business results to return
+     */
+    public Yelp(String term, List<Category> categories, int radius, String location, Sort sort, int offset,
+                boolean deals, int limit) {
         api = new BaseAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
 
         params = new HashMap<>();
@@ -91,14 +127,18 @@ public class Yelp {
             params.put("term", term);
         }
         if (location == null) {
-//            TODO get accurate location through GPS or network
-//            TODO learn methods of specifying location https://www.yelp.com/developers/documentation/v2/search_api
-//            TODO on failure, location = PRESET_LOCATION
+            // TODO get accurate location through GPS or network
+            // TODO learn methods of specifying location https://www.yelp.com/developers/documentation/v2/search_api
+            // TODO on failure, location = PRESET_LOCATION
             location = PRESET_LOCATION;
         }
         params.put("location", location);
         if (!categories.equals(DEFAULT_CATEGORIES)) {
             params.put("category_filter", joinCategoryAliases(categories));
+        }
+        if (sort != DEFAULT_SORT) {
+            // TODO throw exception if mode = Distance and not a location or geographic search. == null?
+            params.put("sort", String.valueOf(sort.value));
         }
         if (offset != DEFAULT_OFFSET) {
             params.put("offset", String.valueOf(offset));
@@ -114,8 +154,7 @@ public class Yelp {
         }
 
         deserializer = new BusinessDeserializer();
-        GsonBuilder builder = new GsonBuilder()
-                .registerTypeAdapter(Business.class, deserializer);
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Business.class, deserializer);
         gson = builder.create();
     }
 
@@ -123,6 +162,13 @@ public class Yelp {
         return get(true);
     }
 
+    /**
+     * Get a list of businesses' data found according to the parameters provided in the ctors before.
+     *
+     * @param loadImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
+     *                   could help reduce loading time when images are not needed.
+     * @return a list of {@link Business}es
+     */
     public List<Business> get(boolean loadImages) {
         Reader searchResponse;
         try {
@@ -135,8 +181,7 @@ public class Yelp {
 
         List<Business> bs = new ArrayList<>();
         JsonParser parser = new JsonParser();
-        JsonArray barr = ((JsonObject) parser.parse(searchResponse))
-                .getAsJsonArray("businesses");
+        JsonArray barr = ((JsonObject) parser.parse(searchResponse)).getAsJsonArray("businesses");
         deserializer.loadImages = loadImages;
         for (JsonElement e : barr) {
             try {
@@ -169,15 +214,15 @@ public class Yelp {
 
         public BusinessDeserializer() {
             this.loadImages = true;
-            this.gson = new GsonBuilder()
-                    .registerTypeAdapter(Category.class, new CategoryDeserializer()).create();
+            this.gson = new GsonBuilder().registerTypeAdapter(Category.class, new CategoryDeserializer())
+                    .create();
         }
 
         @Override
-        public Business deserialize(JsonElement json, Type typeOfT,
-                                    JsonDeserializationContext context) throws JsonParseException {
+        public Business deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
             Business b = gson.fromJson(json, Business.class);
-//            TODO set rating images
+            //            TODO set rating images
             if (loadImages) {
                 b.image = Utils.getImage((JsonObject) json, "image_url");
                 b.snippetImage = Utils.getImage((JsonObject) json, "snippet_image_url");
@@ -188,8 +233,8 @@ public class Yelp {
 
     class CategoryDeserializer implements JsonDeserializer<Category> {
         @Override
-        public Category deserialize(JsonElement json, Type typeOfT,
-                                    JsonDeserializationContext context) throws JsonParseException {
+        public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
             String name = ((JsonArray) json).get(0).getAsString();
             String alias = ((JsonArray) json).get(1).getAsString();
             return new Category(name, alias);

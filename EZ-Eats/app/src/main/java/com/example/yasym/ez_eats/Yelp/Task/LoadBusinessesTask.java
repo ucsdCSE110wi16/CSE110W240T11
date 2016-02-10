@@ -8,9 +8,23 @@ import com.example.yasym.ez_eats.Yelp.Yelp;
 import java.util.List;
 
 /**
+ * Primitive AsyncTask for loading Yelp data on the main thread.
+ * What is the main thread:
+ * http://stackoverflow.com/questions/3652560/what-is-the-android-uithread-ui-thread
+ * Why use AsyncTask:
+ * http://developer.android.com/training/articles/perf-anr.html
+ * Why use AsyncTask in one sentense:
+ * The api won't work on the main thread without using something like AsyncTask.
+ * <p/>
+ * Usage: Override onPostExecute() to implement the callback, and then {@code
+ * Yelp api = new Yelp("pizza");
+ * new LoadBusinessesTask(api).execute();
+ * }
+ * Also see {@link AsyncTask}
+ * <p/>
  * Created by simon on 2/7/16.
  */
-public class LoadBusinessesTask extends AsyncTask<Void, Void, List<Business>> {
+public abstract class LoadBusinessesTask extends AsyncTask<Void, Void, List<Business>> {
 
     private Yelp api;
 
@@ -24,10 +38,5 @@ public class LoadBusinessesTask extends AsyncTask<Void, Void, List<Business>> {
     }
 
     @Override
-    protected void onPostExecute(List<Business> result) {
-        if (result != null) {
-            System.out.println("Got " + result.size() + " businesses.");
-            System.out.println("The first one is \"" + result.get(0).name + "\"");
-        }
-    }
+    protected abstract void onPostExecute(List<Business> result);
 }
