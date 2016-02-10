@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -55,10 +56,12 @@ public class QuestionActivity extends AppCompatActivity {
         switch (action) {
             case RIGHT:
                 questionBox.setText("swiped right!");
+                questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
                 //TODO
                 break;
             case LEFT:
                 questionBox.setText("swiped left!");
+                questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
                 //TODO
                 break;
         }
