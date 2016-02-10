@@ -1,5 +1,6 @@
 package com.example.yasym.ez_eats;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends Activity {
 
 
     final int RIGHT = 0;//Indicator of swiping right.

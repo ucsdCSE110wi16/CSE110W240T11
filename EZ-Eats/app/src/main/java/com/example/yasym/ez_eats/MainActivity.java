@@ -1,5 +1,6 @@
 package com.example.yasym.ez_eats;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.gesture.GestureOverlayView;
 import android.media.Image;
@@ -15,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener{
 
     ImageButton btn_start;
     TextView status;
