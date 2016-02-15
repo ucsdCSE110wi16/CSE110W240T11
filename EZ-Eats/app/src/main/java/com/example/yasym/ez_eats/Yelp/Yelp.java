@@ -1,6 +1,11 @@
 package com.example.yasym.ez_eats.Yelp;
 
+import com.example.yasym.ez_eats.MainActivity;
+import com.example.yasym.ez_eats.Yelp.Task.CurrentLocation;
+
 import android.util.Log;
+import android.location.Location;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -127,10 +132,19 @@ public class Yelp {
             params.put("term", term);
         }
         if (location == null) {
-            // TODO get accurate location through GPS or network
-            // TODO learn methods of specifying location https://www.yelp.com/developers/documentation/v2/search_api
-            // TODO on failure, location = PRESET_LOCATION
-            location = PRESET_LOCATION;
+            //Get the current location
+            CurrentLocation lastKnownPlace = MainActivity.lastKnownPlace;
+            Location currentPlace = lastKnownPlace.getLoc();
+            //Checks to see if latitude/longitude are possible to get
+            if (currentPlace != null) {
+                String lati = String.valueOf(lastKnownPlace.getLatitude());
+                String longi = String.valueOf(lastKnownPlace.getLongitude());
+                location = "&ll=" + lati + "," + longi;
+            }
+            //use preset location if user cannot get current location
+            else {
+                location = "&location=" + PRESET_LOCATION;
+            }
         }
         params.put("location", location);
         if (!categories.equals(DEFAULT_CATEGORIES)) {
