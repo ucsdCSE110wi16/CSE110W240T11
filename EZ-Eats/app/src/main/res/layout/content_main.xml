@@ -24,5 +24,48 @@
         android:layout_marginTop="31dp"
         android:layout_below="@+id/startButton"
         android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/startButton"
+        android:id="@+id/test">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/testTextView"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/testButton"
+            android:layout_toStartOf="@+id/testButton"
+            android:layout_marginTop="58dp"
+            android:layout_gravity="left|top"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/testImageView"
+            android:layout_below="@+id/testTextView"
+            android:layout_alignLeft="@+id/status"
+            android:layout_alignStart="@+id/status"
+            android:layout_marginTop="75dp"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:layout_gravity="left|center_vertical"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:text="test YelpAPI"
+            android:id="@+id/testButton"
+            android:layout_above="@+id/startButton"
+            android:layout_toRightOf="@+id/startButton"
+            android:layout_toEndOf="@+id/startButton"
+            android:layout_gravity="right|center_vertical"/>
+    </FrameLayout>
+
 </RelativeLayout>
 

@@ -1,21 +1,16 @@
 package com.example.yasym.ez_eats;
 
 import com.example.yasym.ez_eats.Yelp.Task.CurrentLocation;
+import com.example.yasym.ez_eats.Yelp.Task.exampleLoadBusinessEntryTask;
+import com.example.yasym.ez_eats.Yelp.Yelp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.gesture.GestureOverlayView;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -32,6 +27,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btn_start.setOnClickListener(this);
         status = (TextView)this.findViewById(R.id.status);
         lastKnownPlace = new CurrentLocation(this);
+
+        // Tests
+        Button changeText = (Button) findViewById(R.id.testButton);
+        changeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView tv = (TextView) findViewById(R.id.testTextView);
+                ImageView iv = (ImageView) findViewById(R.id.testImageView);
+                Yelp api = new Yelp("Pizza");
+                new exampleLoadBusinessEntryTask(tv, iv, api).execute();
+            }
+        });
+        // Tests end
     }
 
     public void startButtonClicked(){
