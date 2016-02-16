@@ -129,6 +129,7 @@ public class Yelp {
         if (!term.equals(DEFAULT_TERM)) {
             params.put("term", term);
         }
+        String key = "location";
         if (location == null) {
             //Get the current location
             CurrentLocation lastKnownPlace = MainActivity.lastKnownPlace;
@@ -137,14 +138,13 @@ public class Yelp {
             if (currentPlace != null) {
                 String lati = String.valueOf(lastKnownPlace.getLatitude());
                 String longi = String.valueOf(lastKnownPlace.getLongitude());
-                location = "&ll=" + lati + "," + longi;
-            }
-            //use preset location if user cannot get current location
-            else {
-                location = "&location=" + PRESET_LOCATION;
+                key = "ll";
+                location = lati + "," + longi;
             }
         }
-        params.put("location", location);
+        //use preset location if user cannot get current location
+        Log.d(LOG_TAG, "key: " + key + ", value: " + location);
+        params.put(key, (location == null) ? PRESET_LOCATION : location);
         if (!categories.equals(DEFAULT_CATEGORIES)) {
             params.put("category_filter", joinCategoryAliases(categories));
         }
