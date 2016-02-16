@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * The Yelp API.
- * <p/>
+ * <p>
  * Usage:
  * on main thread: {@link com.example.yasym.ez_eats.Yelp.Task.LoadBusinessesTask}
  * on non-main thread: {@code
@@ -34,7 +34,7 @@ import java.util.Map;
  * System.out.println(bs.get(0).name);
  * }
  * }
- * <p/>
+ * <p>
  * Created by simon on 2/6/16.
  */
 public class Yelp {
@@ -110,10 +110,8 @@ public class Yelp {
      *                   limit of the first 20 results. This is done by specifying an offset and limit of 20.
      *                   Sort by distance is only supported for a location or geographic search. The rating
      *                   sort is not strictly sorted by the rating value, but by an adjusted rating value
-     *                   that
-     *                   takes into account the number of ratings, similar to a bayesian average. This is so
-     *                   a
-     *                   business with 1 rating of 5 stars doesn’t immediately jump to the top.
+     *                   that takes into account the number of ratings, similar to a bayesian average. This
+     *                   is so a business with 1 rating of 5 stars doesn’t immediately jump to the top.
      * @param offset     Offset the list of returned business results by this amount
      * @param deals      Whether to exclusively search for businesses with deals
      * @param limit      Number of business results to return
@@ -167,7 +165,7 @@ public class Yelp {
      *
      * @param loadImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
      *                   could help reduce loading time when images are not needed.
-     * @return a list of {@link Business}es
+     * @return a list of {@link Business}es, or null if no business was found
      */
     public List<Business> get(boolean loadImages) {
         Reader searchResponse;
