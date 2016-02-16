@@ -1,5 +1,8 @@
 package com.example.yasym.ez_eats;
 
+import com.example.yasym.ez_eats.Yelp.Task.CurrentLocation;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.gesture.GestureOverlayView;
 import android.media.Image;
@@ -15,10 +18,11 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener{
 
     ImageButton btn_start;
     TextView status;
+    public static CurrentLocation lastKnownPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_start = (ImageButton)this.findViewById(R.id.startButton);
         btn_start.setOnClickListener(this);
         status = (TextView)this.findViewById(R.id.status);
+        lastKnownPlace = new CurrentLocation(this);
     }
 
     public void startButtonClicked(){

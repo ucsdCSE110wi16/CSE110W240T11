@@ -7,3 +7,15 @@ Week 5/6 - tree completed (Kallen and Jason)
 Week 7/8/9/10 - connect full tree to swiping feature, connect Yelp searches to code/setting specifications, have         delete/undelete option done
 
 if we have time - include a suggestions tab, allow users to have a profile that connects to their facebook
+
+Updated Schedule (2/10/16):
+Tasks Finished: Conceptual Questionnaire Structure created; Yelp Implementation researched; Basic Display Design finalized, Swiping Input partially implemented
+Tasks To Do: Implement Questionnaire Structure, Restaurant Listings, Ignored Restaurants, Location Settings; Improve Design/Display
+By the end of:
+   Week 6:  Implement Questionnaire Structure, combined with Swiping Input (Kallen)
+            Refine Swiping Input (Jason)
+            Restructure and Improve Design of Interface, Include a "home" screen (Yasy)
+   Week 7:
+   Week 8:  Working Full Prototype!
+   Week 9:
+   Week 10:
