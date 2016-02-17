@@ -15,8 +15,10 @@ By the end of:
    Week 6:  Implement Questionnaire Structure, combined with Swiping Input (Kallen)
             Refine Swiping Input (Jason)
             Restructure and Improve Design of Interface, Include a "home" screen (Yasy)
+            Implement the API by which one can fetch data of businesses from Yelp (Simon)
    Week 7:  Combine swiping with actual questionnaire, refine fragment transition.(Jason)
             Get current location of user from either the GPS or Network providers. (Gary)
+            Optimize the API, including using local resources instead of downloading repeatedly (Simon)
    Week 8:  Working Full Prototype!
    Week 9:
    Week 10:
