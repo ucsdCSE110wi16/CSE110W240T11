@@ -16,6 +16,7 @@ By the end of:
             Refine Swiping Input (Jason)
             Restructure and Improve Design of Interface, Include a "home" screen (Yasy)
    Week 7:  Combine swiping with actual questionnaire, refine fragment transition.(Jason)
+            Get current location of user from either the GPS or Network providers. (Gary)
    Week 8:  Working Full Prototype!
    Week 9:
    Week 10:
