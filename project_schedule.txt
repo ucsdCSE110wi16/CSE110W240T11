@@ -17,6 +17,7 @@ By the end of:
             Restructure and Improve Design of Interface, Include a "home" screen (Yasy)
             Implement the API by which one can fetch data of businesses from Yelp (Simon)
    Week 7:  Combine swiping with actual questionnaire, refine fragment transition.(Jason)
+            Combine Questionnaire Structure with Swiping input (Kallen)
             Get current location of user from either the GPS or Network providers. (Gary)
             Optimize the API, including using local resources instead of downloading repeatedly (Simon)
    Week 8:  Working Full Prototype!
