@@ -1,8 +1,11 @@
 package com.example.yasym.ez_eats.Yelp.Task;
 
+import android.app.Activity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.yasym.ez_eats.R;
 import com.example.yasym.ez_eats.Yelp.Business;
 import com.example.yasym.ez_eats.Yelp.Yelp;
 
@@ -13,27 +16,28 @@ import java.util.List;
  */
 public class exampleLoadBusinessEntryTask extends LoadBusinessesTask {
 
-    TextView textView;
-    ImageView imageView;
+    Activity a;
 
-    public exampleLoadBusinessEntryTask(TextView tv, ImageView iv) {
-        this(tv, iv, new Yelp());
+    public static final String LOG_TAG = "Task.LoadBusiness";
+
+    public exampleLoadBusinessEntryTask(Activity a) {
+        super(new Yelp(a.getApplicationContext(), null, "Pizza"));
+        this.a = a;
     }
 
-    public exampleLoadBusinessEntryTask(TextView tv, ImageView iv, Yelp api) {
-        super(api);
-        textView = tv;
-        imageView = iv;
-    }
 
     @Override
     protected void onPostExecute(List<Business> result) {
-        if (result != null) {
-            Business b0 = result.get(0);
-            System.out.println("Got " + result.size() + " businesses.");
-            System.out.println("The first one is \"" + b0.name + "\"");
-            textView.setText(b0.name);
-            imageView.setImageDrawable(b0.image);
+        if (result == null) {
+            return;
         }
+        Business b0 = result.get(0);
+        Log.i(LOG_TAG, "Got " + result.size() + " businesses.");
+        Log.i(LOG_TAG, "The first one is \"" + b0.name + "\"");
+        ((TextView)a.findViewById(R.id.testTextView)).setText(b0.name);
+        ((ImageView)a.findViewById(R.id.testImageView)).setImageDrawable(b0.image);
+        ((ImageView)a.findViewById(R.id.testImageStars)).setImageDrawable(b0.ratingImage);
+        ((ImageView)a.findViewById(R.id.testImageStarsSmall)).setImageDrawable(b0.ratingImageSmall);
+        ((ImageView)a.findViewById(R.id.testImageStarsLarge)).setImageDrawable(b0.ratingImageLarge);
     }
 }
