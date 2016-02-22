@@ -20,7 +20,7 @@ By the end of:
             Combine Questionnaire Structure with Swiping input (Kallen)
             Get current location of user from either the GPS or Network providers. (Gary)
             Optimize the API, including using local resources instead of downloading repeatedly (Simon)
-   Week 8:  Integrate with Yelp API to show results of query.(Jason)
+   Week 8:  Integrate with Yelp API to show results of query.(Jason, Simon)
             Working Full Prototype!
    Week 9:
    Week 10:

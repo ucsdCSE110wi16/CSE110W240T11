@@ -28,9 +28,9 @@ public class Business {
     @SerializedName("snippet_text")
     public String snippetText; // Snippet text associated with this business
     public Drawable snippetImage; // URL of snippet image associated with this business
-    public Drawable ratingImage; // Star rating image for this business (size = 84x17)
-    public Drawable ratingImageSmall; // Small version of rating image for this business (size = 50x10)
-    public Drawable ratingImageLarge; // Large version of rating image for this business (size = 166x30)
+    public Drawable ratingImage; // Star rating image for this business (size = 103x19)
+    public Drawable ratingImageSmall; // Small version of rating image for this business (size = 58x10)
+    public Drawable ratingImageLarge; // Large version of rating image for this business (size = 183x31)
     public String id; // Yelp ID for this business
 
     @SerializedName("mobile_url")

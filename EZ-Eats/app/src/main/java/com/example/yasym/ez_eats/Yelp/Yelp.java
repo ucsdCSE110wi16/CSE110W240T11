@@ -1,7 +1,10 @@
 package com.example.yasym.ez_eats.Yelp;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.example.yasym.ez_eats.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -24,7 +27,7 @@ import java.util.Map;
 
 /**
  * The Yelp API.
- * <p/>
+ * <p>
  * Usage:
  * on main thread: {@link com.example.yasym.ez_eats.Yelp.Task.LoadBusinessesTask}
  * on non-main thread: {@code
@@ -34,7 +37,7 @@ import java.util.Map;
  * System.out.println(bs.get(0).name);
  * }
  * }
- * <p/>
+ * <p>
  * Created by simon on 2/6/16.
  */
 public class Yelp {
@@ -76,29 +79,30 @@ public class Yelp {
     private BusinessDeserializer deserializer;
 
     public Yelp() {
-        this(null, DEFAULT_TERM);
+        this(null, null, DEFAULT_TERM);
     }
 
-    public Yelp(String coordinates, String term) {
-        this(coordinates, term, DEFAULT_CATEGORIES);
+    public Yelp(Context context, String coordinates, String term) {
+        this(context, coordinates, term, DEFAULT_CATEGORIES);
     }
 
-    public Yelp(String coordinates, List<Category> categories) {
-        this(coordinates, DEFAULT_TERM, categories);
+    public Yelp(Context context, String coordinates, List<Category> categories) {
+        this(context, coordinates, DEFAULT_TERM, categories);
     }
 
-    public Yelp(String coordinates, String term, List<Category> categories) {
-        this(coordinates, term, categories, DEFAULT_RADIUS);
+    public Yelp(Context context, String coordinates, String term, List<Category> categories) {
+        this(context, coordinates, term, categories, DEFAULT_RADIUS);
     }
 
-    public Yelp(String coordinates, String term, List<Category> categories, int radius) {
-        this(coordinates, term, categories, radius, DEFAULT_SORT, DEFAULT_OFFSET, DEFAULT_DEALS,
+    public Yelp(Context context, String coordinates, String term, List<Category> categories, int radius) {
+        this(context, coordinates, term, categories, radius, DEFAULT_SORT, DEFAULT_OFFSET, DEFAULT_DEALS,
                 DEFAULT_LIMIT);
     }
 
     /**
      * Build a Yelp API object.
      *
+     * @param context     Returned object of getApplicationContext()
      * @param coordinates Coordinates to find the businesses. Format: "latitude,longitude"
      * @param term        Search term (e.g. "food", "restaurants"). If term isn’t included we search
      *                    everything. The term keyword also accepts business names such as "Starbucks".
@@ -118,8 +122,8 @@ public class Yelp {
      * @param deals       Whether to exclusively search for businesses with deals
      * @param limit       Number of business results to return
      */
-    public Yelp(String coordinates, String term, List<Category> categories, int radius, Sort sort, int offset,
-                boolean deals, int limit) {
+    public Yelp(Context context, String coordinates, String term, List<Category> categories, int radius,
+                Sort sort, int offset, boolean deals, int limit) {
         api = new BaseAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
 
         params = new HashMap<>();
@@ -146,8 +150,8 @@ public class Yelp {
         if (offset != DEFAULT_OFFSET) {
             params.put("offset", String.valueOf(offset));
         }
-        if (deals != DEFAULT_DEALS) {
-            params.put("deals_filter", String.valueOf(deals));
+        if (deals) {
+            params.put("deals_filter", String.valueOf(true));
         }
         if (radius != DEFAULT_RADIUS) {
             params.put("radius_filter", String.valueOf(radius));
@@ -156,7 +160,7 @@ public class Yelp {
             params.put("limit", String.valueOf(limit));
         }
 
-        deserializer = new BusinessDeserializer();
+        deserializer = new BusinessDeserializer(context);
         GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Business.class, deserializer);
         gson = builder.create();
     }
@@ -210,22 +214,47 @@ public class Yelp {
         return s.toString();
     }
 
-    class BusinessDeserializer implements JsonDeserializer<Business> {
+    static class BusinessDeserializer implements JsonDeserializer<Business> {
 
         boolean loadImages;
         Gson gson;
+        Context context;
 
-        public BusinessDeserializer() {
+        static final int[][] IDSS =
+                new int[][]{{R.drawable.stars_0, R.drawable.stars_small_0, R.drawable.stars_large_0},
+                        {R.drawable.stars_1, R.drawable.stars_small_1, R.drawable.stars_large_1},
+                        {R.drawable.stars_1_5, R.drawable.stars_small_1_5, R.drawable.stars_large_1_5},
+                        {R.drawable.stars_2, R.drawable.stars_small_2, R.drawable.stars_large_2},
+                        {R.drawable.stars_2_5, R.drawable.stars_small_2_5, R.drawable.stars_large_2_5},
+                        {R.drawable.stars_3, R.drawable.stars_small_3, R.drawable.stars_large_3},
+                        {R.drawable.stars_3_5, R.drawable.stars_small_3_5, R.drawable.stars_large_3_5},
+                        {R.drawable.stars_4, R.drawable.stars_small_4, R.drawable.stars_large_4},
+                        {R.drawable.stars_4_5, R.drawable.stars_small_4_5, R.drawable.stars_large_4_5},
+                        {R.drawable.stars_5, R.drawable.stars_small_5, R.drawable.stars_large_5}};
+
+        public BusinessDeserializer(Context context) {
             this.loadImages = true;
             this.gson = new GsonBuilder().registerTypeAdapter(Category.class, new CategoryDeserializer())
                     .create();
+            this.context = context;
         }
 
         @Override
         public Business deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             Business b = gson.fromJson(json, Business.class);
-            //            TODO set rating images
+            // Set rating images
+            if (context != null) {
+                int irating = (int) Math.round(2 * b.rating) - 1;
+                if (!(irating >= 1 && irating <= 9)) {
+                    irating = 0;
+                }
+                int[] ids = IDSS[irating];
+                b.ratingImage = ContextCompat.getDrawable(this.context, ids[0]);
+                b.ratingImageSmall = ContextCompat.getDrawable(this.context, ids[1]);
+                b.ratingImageLarge = ContextCompat.getDrawable(this.context, ids[2]);
+            }
+            // Load images of the business
             if (loadImages) {
                 b.image = Utils.getImage((JsonObject) json, "image_url");
                 b.snippetImage = Utils.getImage((JsonObject) json, "snippet_image_url");
@@ -234,7 +263,7 @@ public class Yelp {
         }
     }
 
-    class CategoryDeserializer implements JsonDeserializer<Category> {
+    static class CategoryDeserializer implements JsonDeserializer<Category> {
         @Override
         public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {

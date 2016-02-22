@@ -65,6 +65,24 @@
             android:layout_toRightOf="@+id/startButton"
             android:layout_toEndOf="@+id/startButton"
             android:layout_gravity="right|center_vertical"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/testImageStars"
+            android:layout_gravity="center_horizontal|top"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/testImageStarsSmall"
+            android:layout_gravity="center_horizontal|bottom"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/testImageStarsLarge"
+            android:layout_gravity="center"/>
     </FrameLayout>
 
 </RelativeLayout>
