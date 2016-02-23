@@ -21,6 +21,7 @@ By the end of:
             Get current location of user from either the GPS or Network providers. (Gary)
             Optimize the API, including using local resources instead of downloading repeatedly (Simon)
    Week 8:  Integrate with Yelp API to show results of query.(Jason, Simon)
+            Work on home screen logo and transition (Yasy)
             Working Full Prototype!
    Week 9:
    Week 10:
