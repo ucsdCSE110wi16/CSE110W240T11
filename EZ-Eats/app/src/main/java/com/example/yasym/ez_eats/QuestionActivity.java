@@ -2,14 +2,11 @@ package com.example.yasym.ez_eats;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class QuestionActivity extends Activity {
@@ -20,18 +17,21 @@ public class QuestionActivity extends Activity {
 
     GestureDetector gestureDetector;
     TextView questionBox;
+    ListView restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionsfragment);
         questionBox = (TextView)this.findViewById(R.id.questions);
-        gestureDetector = new GestureDetector(this,onGestureListener);
+        gestureDetector = new GestureDetector(this.onGestureListener);
+        restaurants = (ListView)this.findViewById(R.id.restaurantlist);
+        String[] values = new String[] {"A", "B", "C", "D", "E", "F"};
+        restaurants.setAdapter(new ArrayAdapter<String>(this, R.layout.restaurant_list, values));
     }
 
 
-    private GestureDetector.OnGestureListener onGestureListener =
-            new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector.OnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                        float velocityY) {
