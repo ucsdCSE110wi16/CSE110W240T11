@@ -2,6 +2,7 @@ package com.example.yasym.ez_eats.Yelp;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.yasym.ez_eats.R;
@@ -77,6 +78,8 @@ public class Yelp {
     private Map<String, String> params;
     private Gson gson;
     private BusinessDeserializer deserializer;
+    private List<Business> cache;
+    private boolean isImageLoaded;
 
     public Yelp() {
         this(null, null, DEFAULT_TERM);
@@ -141,7 +144,11 @@ public class Yelp {
         Log.d(LOG_TAG, "key: " + key + ", value: " + value);
         params.put(key, value);
         if (!categories.equals(DEFAULT_CATEGORIES)) {
-            params.put("category_filter", joinCategoryAliases(categories));
+            List<String> sCatas = new ArrayList<>();
+            for (Category c : categories) {
+                sCatas.add(c.alias);
+            }
+            params.put("category_filter", TextUtils.join(",", sCatas));
         }
         if (sort != DEFAULT_SORT) {
             // TODO throw exception if mode = Distance and not a location or geographic search. == null?
@@ -177,6 +184,12 @@ public class Yelp {
      * @return a list of {@link Business}es, or null if no business was found
      */
     public List<Business> get(boolean loadImages) {
+        if (cache != null) {
+            if (!(loadImages && !isImageLoaded)) {
+                return cache;
+            }
+        }
+
         Reader searchResponse;
         try {
             searchResponse = api.searchForBusinesses(params);
@@ -199,19 +212,14 @@ public class Yelp {
             }
         }
 
-        return (bs.size() > 0) ? bs : null;
+        cache = (bs.size() > 0) ? bs : null;
+        isImageLoaded = loadImages;
+        return cache;
     }
 
-    private static String joinCategoryAliases(List<Category> list) {
-        StringBuilder s = new StringBuilder();
-        for (Category c : list) {
-            s.append(c.alias);
-            s.append(',');
-        }
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-        return s.toString();
+    static void loadBusinessImages(Business b, JsonObject o) {
+        b.image = Utils.getImage(o, "image_url");
+        b.snippetImage = Utils.getImage(o, "snippet_image_url");
     }
 
     static class BusinessDeserializer implements JsonDeserializer<Business> {
@@ -256,8 +264,7 @@ public class Yelp {
             }
             // Load images of the business
             if (loadImages) {
-                b.image = Utils.getImage((JsonObject) json, "image_url");
-                b.snippetImage = Utils.getImage((JsonObject) json, "snippet_image_url");
+                Yelp.loadBusinessImages(b, (JsonObject) json);
             }
             return b;
         }

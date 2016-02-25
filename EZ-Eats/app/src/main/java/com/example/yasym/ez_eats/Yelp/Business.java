@@ -34,8 +34,8 @@ public class Business {
     public String id; // Yelp ID for this business
 
     @SerializedName("mobile_url")
-    private String mobileUrl; // for mobile business page on Yelp
-    private String url; // for business page on Yelp
+    String mobileUrl; // for mobile business page on Yelp
+    String url; // for business page on Yelp
 
     private static final String LOG_TAG = "Yelp.Business";
 
@@ -44,19 +44,14 @@ public class Business {
         return null;
     }
 
-    public Intent getYelpDesktopIntent() {
-//        TODO probably means open in a browser
+    public Intent getYelpWebsiteIntent() {
+//        TODO open in a browser
         return null;
     }
 
     public Intent getMapIntentFromLocation() {
 //        TODO use Google Maps?
         return null;
-    }
-
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
     }
 
     /**
