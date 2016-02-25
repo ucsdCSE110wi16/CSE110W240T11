@@ -21,7 +21,7 @@ public class exampleLoadBusinessEntryTask extends LoadBusinessesTask {
     public static final String LOG_TAG = "Task.LoadBusiness";
 
     public exampleLoadBusinessEntryTask(Activity a) {
-        super(new Yelp(a.getApplicationContext(), null, "Pizza"));
+        super(new Yelp(a.getApplicationContext(), null, "Donuts"));
         this.a = a;
     }
 

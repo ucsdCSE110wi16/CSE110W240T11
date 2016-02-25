@@ -18,7 +18,9 @@ import com.google.gson.JsonSyntaxException;
 
 import org.scribe.exceptions.OAuthConnectionException;
 
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,7 +179,7 @@ public class Yelp {
      * @return a list of {@link Business}es, or null if no business was found
      */
     public List<Business> get(boolean loadImages) {
-        Reader searchResponse;
+        String searchResponse;
         try {
             searchResponse = api.searchForBusinesses(params);
         } catch (OAuthConnectionException e) {

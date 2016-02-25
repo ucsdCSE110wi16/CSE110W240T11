@@ -40,7 +40,7 @@ public class BaseAPI {
         this.accessToken = new Token(token, tokenSecret);
     }
 
-    Reader searchForBusinesses(Map<String, String> params) {
+    String searchForBusinesses(Map<String, String> params) {
         OAuthRequest request = createOAuthRequest(SEARCH_PATH);
         for (Map.Entry<String, String> item : params.entrySet()) {
             request.addQuerystringParameter(item.getKey(), item.getValue());
@@ -57,7 +57,7 @@ public class BaseAPI {
      * @param businessID <tt>String</tt> business ID of the requested business
      * @return <tt>String</tt> JSON Business
      */
-    Reader searchByBusinessId(String businessID) {
+    String searchByBusinessId(String businessID) {
         OAuthRequest request = createOAuthRequest(BUSINESS_PATH + "/" + businessID);
         return sendRequestAndGetResponse(request);
     }
@@ -78,11 +78,11 @@ public class BaseAPI {
      * @param request {@link OAuthRequest} corresponding to the API request
      * @return <tt>String</tt> body of API response
      */
-    private Reader sendRequestAndGetResponse(OAuthRequest request) {
+    private String sendRequestAndGetResponse(OAuthRequest request) {
         Log.d(LOG_TAG, "Querying " + request.getCompleteUrl());
         this.service.signRequest(this.accessToken, request);
         Response response = request.send();
-        return new BufferedReader(new InputStreamReader(response.getStream()));
+        return response.getBody();
     }
 
     /**
