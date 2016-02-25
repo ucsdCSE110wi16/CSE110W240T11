@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yasym.ez_eats.MainActivity">
-
+    tools:context="com.example.yasym.ez_eats.MainActivity"
+    android:background="@drawable/background_gradient">
 
     <ImageButton
         android:layout_width="120dp"
@@ -13,17 +13,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/start"
-        android:scaleType="centerCrop" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Status"
-        android:id="@+id/status"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/startButton"
-        android:layout_centerHorizontal="true" />
+        android:scaleType="centerCrop"
+        android:layout_gravity="center" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -56,16 +47,6 @@
             android:minWidth="100dp"
             android:layout_gravity="left|center_vertical"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:text="test YelpAPI"
-            android:id="@+id/testButton"
-            android:layout_above="@+id/startButton"
-            android:layout_toRightOf="@+id/startButton"
-            android:layout_toEndOf="@+id/startButton"
-            android:layout_gravity="right|center_vertical"/>
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +64,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/testImageStarsLarge"
             android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:text="test YelpAPI"
+            android:id="@+id/testButton"
+            android:layout_above="@+id/startButton"
+            android:layout_toRightOf="@+id/startButton"
+            android:layout_toEndOf="@+id/startButton"
+            android:layout_gravity="right|top" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="EZ EATS"
+            android:textStyle="bold"
+            android:textColor="#583759"
+            android:id="@+id/status"
+            android:layout_below="@+id/startButton"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="left|center_vertical" />
     </FrameLayout>
 
-</RelativeLayout>
+</LinearLayout>
 

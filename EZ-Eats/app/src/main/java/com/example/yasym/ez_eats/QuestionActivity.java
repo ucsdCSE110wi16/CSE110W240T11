@@ -57,13 +57,13 @@ public class QuestionActivity extends Activity {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                        float velocityY) {
-              float x = e2.getX() - e1.getX();
-              if (x > 100) {
-                takeAction(RIGHT);
-              } else if (x < -100) {
-                takeAction(LEFT);
-              }
-              return true;
+                    float x = e2.getX() - e1.getX();
+                    if (x > 100) {
+                        takeAction(RIGHT);
+                    } else if (x < -100) {
+                        takeAction(LEFT);
+                    }
+                    return true;
                 }
             };
 
