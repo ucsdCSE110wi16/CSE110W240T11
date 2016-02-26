@@ -3,6 +3,7 @@ package com.example.yasym.ez_eats.Yelp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -34,8 +35,8 @@ public class Business {
     public String id; // Yelp ID for this business
 
     @SerializedName("mobile_url")
-    String mobileUrl; // for mobile business page on Yelp
-    String url; // for business page on Yelp
+    private String mobileUrl; // for mobile business page on Yelp
+    private String url; // for business page on Yelp
 
     private static final String LOG_TAG = "Yelp.Business";
 
@@ -87,10 +88,10 @@ public class Business {
         public String toString() {
             return TextUtils.join("\n", displayAddress);
         }
-    }
 
-    public class Coordinate {
-        public double latitude; // Latitude associated with the location.
-        public double longitude; // Longitude associated with the location.
+        public class Coordinate {
+            public double latitude; // Latitude associated with the location.
+            public double longitude; // Longitude associated with the location.
+        }
     }
 }

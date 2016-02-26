@@ -11,6 +11,7 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class BaseAPI {
         this.accessToken = new Token(token, tokenSecret);
     }
 
-    String searchForBusinesses(Map<String, String> params) {
+    InputStream searchForBusinesses(Map<String, String> params) {
         OAuthRequest request = createOAuthRequest(SEARCH_PATH);
         for (Map.Entry<String, String> item : params.entrySet()) {
             request.addQuerystringParameter(item.getKey(), item.getValue());
@@ -57,7 +58,7 @@ public class BaseAPI {
      * @param businessID <tt>String</tt> business ID of the requested business
      * @return <tt>String</tt> JSON Business
      */
-    String searchByBusinessId(String businessID) {
+    InputStream searchByBusinessId(String businessID) {
         OAuthRequest request = createOAuthRequest(BUSINESS_PATH + "/" + businessID);
         return sendRequestAndGetResponse(request);
     }
@@ -78,11 +79,11 @@ public class BaseAPI {
      * @param request {@link OAuthRequest} corresponding to the API request
      * @return <tt>String</tt> body of API response
      */
-    private String sendRequestAndGetResponse(OAuthRequest request) {
+    private InputStream sendRequestAndGetResponse(OAuthRequest request) {
         Log.d(LOG_TAG, "Querying " + request.getCompleteUrl());
         this.service.signRequest(this.accessToken, request);
         Response response = request.send();
-        return response.getBody();
+        return response.getStream();
     }
 
     /**
