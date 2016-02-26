@@ -14,17 +14,17 @@ public class QuestionTree {
     }
 
     void ConstructTree(){
-        root = new QuestionNode("Snack or Meal?", false);
+        root = new QuestionNode("Do you want snack?", false);
         QuestionNode DorE = new QuestionNode("Do you want to Drink or Eat?", false);
-        QuestionNode Ame_N = new QuestionNode("Do you want American food or Not?", false);
-        QuestionNode Asi_N = new QuestionNode("Do you want Asian food or Not?", false);
-        QuestionNode Eur_N = new QuestionNode("Do you want European food or Not?", false);
-        QuestionNode Ame = new QuestionNode("American results",true);
-        QuestionNode Asi = new QuestionNode("Asian results",true);
-        QuestionNode Eur = new QuestionNode("European results", true);
-        QuestionNode drink = new QuestionNode("Drink results", true);
-        QuestionNode eat = new QuestionNode("Eat results", true);
-        QuestionNode end = new QuestionNode("Query ends", true);
+        QuestionNode Ame_N = new QuestionNode("Do you want American food?", false);
+        QuestionNode Asi_N = new QuestionNode("Do you want Asian food?", false);
+        QuestionNode Eur_N = new QuestionNode("Do you want European food?", false);
+        QuestionNode Ame = new QuestionNode("American results!",true);
+        QuestionNode Asi = new QuestionNode("Asian results!",true);
+        QuestionNode Eur = new QuestionNode("European results!", true);
+        QuestionNode drink = new QuestionNode("Drink results!", true);
+        QuestionNode eat = new QuestionNode("Eat results!", true);
+        QuestionNode end = new QuestionNode("Query ends!", true);
         root.setLeft(DorE);
         DorE.setLeft(drink);
         DorE.setRight(eat);

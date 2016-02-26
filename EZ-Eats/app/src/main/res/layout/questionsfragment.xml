@@ -7,10 +7,10 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="What Are You Feeling?"
-        android:id="@+id/textView"
+        android:id="@+id/title"
         android:textAlignment="center"
         android:background="@drawable/background_gradient"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -18,14 +18,14 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
-        android:textSize="35dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="0dp" />
+        android:textSize="30sp"
+        android:layout_weight="2.2"
+        android:gravity="center_vertical" />
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="10"
         android:id="@+id/restaurantlist"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -34,16 +34,18 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:background="@drawable/background_gradient_flip"
         android:text="Questions Go Here"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:id="@+id/questions"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:textColor="#000000"
-        android:background="#ffffff"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:nestedScrollingEnabled="false" />
 
 </LinearLayout>
