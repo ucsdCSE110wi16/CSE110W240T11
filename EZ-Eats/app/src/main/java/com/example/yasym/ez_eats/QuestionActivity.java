@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +48,14 @@ public class QuestionActivity extends Activity {
         listAdapter = new ArrayAdapter<String>(this,
                 R.layout.restaurant_list, resultingRestaurants);
         restaurants.setAdapter(listAdapter);
+
+        //Set the background color of the restaurant list upon selection.
+        restaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+            }
+        });
     }
 
     /**
@@ -57,13 +66,13 @@ public class QuestionActivity extends Activity {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                        float velocityY) {
-              float x = e2.getX() - e1.getX();
-              if (x > 100) {
-                takeAction(RIGHT);
-              } else if (x < -100) {
-                takeAction(LEFT);
-              }
-              return true;
+                    float x = e2.getX() - e1.getX();
+                    if (x > 100) {
+                        takeAction(RIGHT);
+                    } else if (x < -100) {
+                        takeAction(LEFT);
+                    }
+                    return true;
                 }
             };
 
@@ -92,6 +101,12 @@ public class QuestionActivity extends Activity {
         }
     }
 
+    /**
+     * Decide which question to go next based current question and
+     * swiping direction.
+     * @param node current question
+     * @param direction left or right swipe
+     */
     void updateQuestionAndResult(QuestionNode node, int direction){
         if (node.isResult()){
             questionBox.setText("This is what you are looking for!");
@@ -103,6 +118,7 @@ public class QuestionActivity extends Activity {
                 listAdapter = new ArrayAdapter<String>(this, R.layout.restaurant_list,
                         resultingRestaurants);
                 restaurants.setAdapter(listAdapter);
+                //questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.translate));
                 questionBox.setText(currentQuestion.getQuestion());
             }
         }

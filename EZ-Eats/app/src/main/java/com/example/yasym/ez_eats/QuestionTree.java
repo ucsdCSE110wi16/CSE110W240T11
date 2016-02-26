@@ -24,6 +24,7 @@ public class QuestionTree {
         QuestionNode Eur = new QuestionNode("European results", true);
         QuestionNode drink = new QuestionNode("Drink results", true);
         QuestionNode eat = new QuestionNode("Eat results", true);
+        QuestionNode end = new QuestionNode("Query ends", true);
         root.setLeft(DorE);
         DorE.setLeft(drink);
         DorE.setRight(eat);
@@ -33,13 +34,14 @@ public class QuestionTree {
         Asi_N.setLeft(Asi);
         Asi_N.setRight(Eur_N);
         Eur_N.setLeft(Eur);
-        Eur_N.setRight(null);
+        Eur_N.setRight(end);
 
         drink.setResults(ResultingCategories.getdrinks());
         eat.setResults(ResultingCategories.getFoods());
         Ame.setResults(ResultingCategories.getAmericans());
         Eur.setResults(ResultingCategories.getEuropean());
         Asi.setResults(ResultingCategories.getAsian());
+        end.setResults(ResultingCategories.getAll());
     }
 
     QuestionNode getRoot(){

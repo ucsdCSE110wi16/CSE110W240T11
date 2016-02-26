@@ -40,7 +40,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void startButtonClicked() {
-        status.setText("Button Clicked!");
         startActivity(new Intent("android.intent.action.QUESTION"));
     }
 

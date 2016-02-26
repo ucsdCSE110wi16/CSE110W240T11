@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:gravity="center_vertical"
+    android:textAlignment="center"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingLeft="?android:attr/listPreferredItemPaddingRight"
     android:paddingRight="?android:attr/listPreferredItemPaddingLeft"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:background="@drawable/my_selector"/>
