@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <drawable name="red_color">#a76aed</drawable>
-    <drawable name="blue_color">#61e0f1</drawable>
+    <drawable name="purple_color">#bc87f9</drawable>
+    <drawable name="blue_color">#20e3fb</drawable>
 </resources>

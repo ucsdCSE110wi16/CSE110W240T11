@@ -1,7 +1,7 @@
 package com.example.yasym.ez_eats;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -17,17 +17,21 @@ import java.util.ArrayList;
 
 public class QuestionActivity extends Activity {
 
+    private final String FONT_PATH = "font/future.ttf";
 
-    final int RIGHT = 0;//Indicator of swiping right.
 
+    private final int RIGHT = 0;//Indicator of swiping right.
+    private final int LEFT = 1;//swiping left.
 
-    GestureDetector gestureDetector;
-    TextView questionBox;
-    ListView restaurants;
-    ArrayAdapter<String> listAdapter;
-    ArrayList<String> resultingRestaurants;
-    QuestionTree tree;
-    QuestionNode currentQuestion;
+    private GestureDetector gestureDetector;
+    private TextView questionBox;
+    private TextView title;
+    private ListView restaurants;
+    private ArrayAdapter<String> listAdapter;
+    private ArrayList<String> resultingRestaurants;
+    private QuestionTree tree;
+    private QuestionNode currentQuestion;
+    private Typeface tf;
 
 
     @Override
@@ -38,8 +42,10 @@ public class QuestionActivity extends Activity {
 
         //Initialize the components.
         questionBox = (TextView)this.findViewById(R.id.questions);
+        title = (TextView)this.findViewById(R.id.title);
         gestureDetector = new GestureDetector(this.onGestureListener);
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
+        tf = Typeface.createFromAsset(getAssets(), FONT_PATH);
 
         tree = new QuestionTree();
         //Set currentQuestion to root of the tree.
@@ -47,6 +53,8 @@ public class QuestionActivity extends Activity {
 
         //Display the first question.
         questionBox.setText(currentQuestion.getQuestion());
+        questionBox.setTypeface(tf);
+        title.setTypeface(tf);
         //Display all possible restaurant first.
         resultingRestaurants = ResultingCategories.getAll();
         //Initialize the list content adapter.

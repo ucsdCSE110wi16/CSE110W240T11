@@ -3,6 +3,7 @@ package com.example.yasym.ez_eats.Yelp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -44,19 +45,14 @@ public class Business {
         return null;
     }
 
-    public Intent getYelpDesktopIntent() {
-//        TODO probably means open in a browser
+    public Intent getYelpWebsiteIntent() {
+//        TODO open in a browser
         return null;
     }
 
     public Intent getMapIntentFromLocation() {
 //        TODO use Google Maps?
         return null;
-    }
-
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
     }
 
     /**
@@ -92,10 +88,10 @@ public class Business {
         public String toString() {
             return TextUtils.join("\n", displayAddress);
         }
-    }
 
-    public class Coordinate {
-        public double latitude; // Latitude associated with the location.
-        public double longitude; // Longitude associated with the location.
+        public class Coordinate {
+            public double latitude; // Latitude associated with the location.
+            public double longitude; // Longitude associated with the location.
+        }
     }
 }

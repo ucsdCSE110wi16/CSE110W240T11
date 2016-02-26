@@ -2,13 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_selected="false"
-        android:drawable="@drawable/red_color"
+        android:drawable="@drawable/blue_color"
         >
 
     </item>
     <item
         android:state_selected="true"
-        android:drawable="@drawable/blue_color"
+        android:drawable="@drawable/purple_color"
         >
 
     </item>
