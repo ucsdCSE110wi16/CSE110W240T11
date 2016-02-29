@@ -58,6 +58,7 @@ public class MainActivity extends Activity{
 
     public void toQuestionActivity() {
         startActivity(new Intent("android.intent.action.QUESTION"));
+        overridePendingTransition(R.anim.animation1, R.anim.animation2);
     }
 
     /**

@@ -164,17 +164,32 @@ public class QuestionActivity extends Activity {
              * based on swiping direction.
              */
             currentQuestion = currentQuestion.getNextQuestion(direction);
-            questionBox.setText(currentQuestion.getQuestion());
+
+            /**
+             * Animation of question transition.
+             * To be refined.
+             */
+            if (direction == RIGHT){
+                questionBox.startAnimation(AnimationUtils.
+                        loadAnimation(this, R.anim.slide_out_right));
+                questionBox.setText(currentQuestion.getQuestion());
+                questionBox.startAnimation(AnimationUtils.
+                        loadAnimation(this, R.anim.slide_in_left));
+            }else{
+                questionBox.startAnimation(AnimationUtils.
+                        loadAnimation(this, R.anim.slide_out_left));
+                questionBox.setText(currentQuestion.getQuestion());
+                questionBox.startAnimation(AnimationUtils.
+                        loadAnimation(this, R.anim.slide_in_right));
+            }
+
             if (currentQuestion.isResult()){
                 resultingRestaurants = currentQuestion.getResults();
                 listAdapter = new ArrayAdapter<String>(this, R.layout.restaurant_list,
                         resultingRestaurants);
                 restaurants.setAdapter(listAdapter);
-                /**
-                 * Transition animation needed here.(low priority)
-                 */
-                //questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.translate));
                 questionBox.setText(currentQuestion.getQuestion());
+
             }
         }
     }
