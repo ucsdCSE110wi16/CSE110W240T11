@@ -11,4 +11,5 @@
     android:paddingLeft="?android:attr/listPreferredItemPaddingRight"
     android:paddingRight="?android:attr/listPreferredItemPaddingLeft"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:background="@drawable/my_selector"/>
+    android:background="@drawable/my_selector"
+    android:textColor="#ffffff" />
