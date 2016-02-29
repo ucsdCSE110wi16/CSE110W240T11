@@ -12,7 +12,7 @@
         android:text="What Are You Feeling?"
         android:id="@+id/title"
         android:textAlignment="center"
-        android:background="@drawable/background_gradient"
+        android:background="@drawable/background_new_flip"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:background="@drawable/background_gradient_flip"
+        android:background="@drawable/background_new"
         android:text="Questions Go Here"
         android:layout_weight="5"
         android:id="@+id/questions"
