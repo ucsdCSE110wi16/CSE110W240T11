@@ -16,11 +16,15 @@ import com.example.yasym.ez_eats.Yelp.Task.CurrentLocation;
 import com.example.yasym.ez_eats.Yelp.Task.exampleLoadBusinessEntryTask;
 import com.example.yasym.ez_eats.Yelp.Yelp;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends Activity{
 
     private final int RIGHT = 0;//Indicator of swiping right.
     private final int LEFT = 1;//swiping left.
 
+    private final int SPLASH_DISPLAY_LENGHT = 3000;
     TextView status;
     public static CurrentLocation lastKnownPlace;
     private GestureDetector gestureDetector;
@@ -32,6 +36,16 @@ public class MainActivity extends Activity{
         gestureDetector = new GestureDetector(this.onGestureListener);
         lastKnownPlace = new CurrentLocation(this);
 
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+
+                startActivity(new Intent("android.intent.action.QUESTION"));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        };
+        timer.schedule(task, SPLASH_DISPLAY_LENGHT);
     }
 
     /**
@@ -58,7 +72,7 @@ public class MainActivity extends Activity{
 
     public void toQuestionActivity() {
         startActivity(new Intent("android.intent.action.QUESTION"));
-        overridePendingTransition(R.anim.animation1, R.anim.animation2);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     /**

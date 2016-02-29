@@ -23,6 +23,7 @@ public class QuestionActivity extends Activity {
      * Feel free to change.
      */
     private final String FONT_PATH = "font/future.ttf";
+    private final String FONT_PATH_2 = "font/croissant.ttf";
 
     private final int RIGHT = 0;//Indicator of swiping right.
     private final int LEFT = 1;//swiping left.
@@ -54,7 +55,6 @@ public class QuestionActivity extends Activity {
         title = (TextView)this.findViewById(R.id.title);
         gestureDetector = new GestureDetector(this.onGestureListener);
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
-        tf = Typeface.createFromAsset(getAssets(), FONT_PATH);
         tree = new QuestionTree();
 
         /**
@@ -66,7 +66,9 @@ public class QuestionActivity extends Activity {
         /**
          * Set font of title and question.
          */
+        tf = Typeface.createFromAsset(getAssets(), FONT_PATH);
         questionBox.setTypeface(tf);
+        tf = Typeface.createFromAsset(getAssets(), FONT_PATH_2);
         title.setTypeface(tf);
 
         /**
@@ -90,7 +92,8 @@ public class QuestionActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO
                 AlertDialog.Builder alert = new AlertDialog.Builder(QuestionActivity.this);
-                alert.setMessage("Should take you to YELP!").create();
+                String data=(String)parent.getItemAtPosition(position);
+                alert.setMessage("Should take you to YELP and find some " + data).create();
                 alert.show();
                 view.setSelected(true);
             }
