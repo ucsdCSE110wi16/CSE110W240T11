@@ -1,10 +1,17 @@
 package com.example.yasym.ez_eats.Yelp;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.yasym.ez_eats.R;
 import com.google.gson.ExclusionStrategy;
@@ -63,6 +70,7 @@ public class Yelp {
     private Gson gson;
     private BusinessDeserializer deserializer;
     private List<Business> cache;
+    private Context context;
 
     /**
      * Build a Yelp API object.
@@ -70,19 +78,11 @@ public class Yelp {
      * @param context Returned object of getApplicationContext()
      */
     public Yelp(Context context) {
+        this.context = context;
         api = new BaseAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
         params = new HashMap<>();
         deserializer = new BusinessDeserializer(context);
         gson = new GsonBuilder().registerTypeAdapter(Business.class, deserializer).create();
-    }
-
-    /**
-     * @param coords Coordinates to find the businesses. Format: "latitude,longitude"
-     * @return this
-     */
-    public Yelp setCoords(String coords) {
-        params.put("ll", coords);
-        return this;
     }
 
     /**
@@ -195,9 +195,16 @@ public class Yelp {
 
         // throw exception if mode = Distance and not a location or geographic search?
 
-        if (!params.containsKey("ll")) {
-            params.put("location", PRESET_LOCATION);
+        // Get location
+        String key, location = Utils.getCoords(context);
+        if (location == null) {
+            key = "location";
+            location = PRESET_LOCATION;
+            Log.i(LOG_TAG, "Failed to access to user's current location. Using the default city instead");
+        } else {
+            key = "ll";
         }
+        params.put(key, location);
 
         InputStream searchResponse;
         try {
@@ -269,19 +276,19 @@ public class Yelp {
         }
 
         @Override
-        public Business deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        public Business deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext jsonContext)
                 throws JsonParseException {
             Business b = gson.fromJson(json, Business.class);
             // Set rating images
-            if (this.context != null) {
+            if (context != null) {
                 int iRating = (int) Math.round(2 * b.rating) - 1;
                 if (!(iRating >= 1 && iRating <= 9)) {
                     iRating = 0;
                 }
                 int[] ids = IDSS[iRating];
-                b.ratingImage = ContextCompat.getDrawable(this.context, ids[0]);
-                b.ratingImageSmall = ContextCompat.getDrawable(this.context, ids[1]);
-                b.ratingImageLarge = ContextCompat.getDrawable(this.context, ids[2]);
+                b.ratingImage = ContextCompat.getDrawable(context, ids[0]);
+                b.ratingImageSmall = ContextCompat.getDrawable(context, ids[1]);
+                b.ratingImageLarge = ContextCompat.getDrawable(context, ids[2]);
             }
             // Load images of the business
             if (loadImages) {
