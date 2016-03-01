@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.example.yasym.ez_eats.Yelp.Business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -25,6 +27,8 @@ public class YelpResultActivity extends AppCompatActivity {
 
     private List<Business> business;
     private List<String> snippetText;
+    private List<Drawable> images;
+    private List<String> names;
 
     private YelpLoader yLoader;
     private String resultTerm;
@@ -46,14 +50,15 @@ public class YelpResultActivity extends AppCompatActivity {
             ee.printStackTrace();
         }
 
-//
-//        Log.i("business size = ", business.size() + "");
-//        Log.i("Yelp result", "finished");
-
+        names = new ArrayList<>();
+        images = new ArrayList<>();
         snippetText = new ArrayList<>();
         for (Business b:business){
-            snippetText.add(b.name + " [rating=" + b.rating + "]");
+            names.add(b.name);
+            images.add(b.image);
+            snippetText.add(b.snippetText);
         }
+        
 
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,
