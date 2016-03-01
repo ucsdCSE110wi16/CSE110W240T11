@@ -20,16 +20,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Class representing the result window.
+ * This activity is opened when one of the restaurant categories is
+ * selected on the previous page.
+ */
 public class YelpResultActivity extends AppCompatActivity {
 
+    /**
+     * Components of this class.
+     */
     private ListView resultRestaurants;
     private MyListAdapter myAdapter;
 
+    /**
+     * Lists that hold different attributes of restaurants.
+     */
     private List<Business> business;
     private List<String> snippetText;
     private List<Drawable> images;
     private List<String> names;
 
+    /**
+     * The yelp loader, helps connect to yelp and query for
+     * "resultTerm" categories.
+     */
     private YelpLoader yLoader;
     private String resultTerm;
 
@@ -42,6 +57,9 @@ public class YelpResultActivity extends AppCompatActivity {
         resultTerm = QuestionActivity.getTerm();
         yLoader = new YelpLoader(this, resultTerm);
 
+        /**
+         * Get the result of querying
+         */
         try {
             business = yLoader.execute().get();
         }catch (InterruptedException ie){
