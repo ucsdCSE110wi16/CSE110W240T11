@@ -42,6 +42,7 @@ public class QuestionTree {
         Eur.setResults(ResultingCategories.getEuropean());
         Asi.setResults(ResultingCategories.getAsian());
         end.setResults(ResultingCategories.getAll());
+        root.setResults(ResultingCategories.getAll());
     }
 
     QuestionNode getRoot(){

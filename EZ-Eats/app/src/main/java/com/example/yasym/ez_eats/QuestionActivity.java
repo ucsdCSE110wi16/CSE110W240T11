@@ -2,6 +2,7 @@ package com.example.yasym.ez_eats;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,7 +43,9 @@ public class QuestionActivity extends Activity {
     private QuestionTree tree;
     private QuestionNode currentQuestion;
     private Typeface tf;
+    private Button restart;
 
+    private static String resultTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class QuestionActivity extends Activity {
         title = (TextView)this.findViewById(R.id.title);
         gestureDetector = new GestureDetector(this.onGestureListener);
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
+        restart = (Button)this.findViewById(R.id.restart);
         tree = new QuestionTree();
 
         /**
@@ -91,11 +96,24 @@ public class QuestionActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO
+                resultTerm = (String)parent.getItemAtPosition(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(QuestionActivity.this);
-                String data=(String)parent.getItemAtPosition(position);
-                alert.setMessage("Should take you to YELP and find some " + data).create();
+                alert.setMessage("Finding some " + resultTerm + " for you").create();
                 alert.show();
                 view.setSelected(true);
+                startActivity(new Intent("android.intent.action.YELPRESULT"));
+            }
+        });
+
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentQuestion = tree.getRoot();
+                questionBox.setText(currentQuestion.getQuestion());
+                resultingRestaurants = currentQuestion.getResults();
+                listAdapter = new ArrayAdapter<String>(QuestionActivity.this,
+                        R.layout.restaurant_list, resultingRestaurants);
+                restaurants.setAdapter(listAdapter);
             }
         });
     }
@@ -136,13 +154,12 @@ public class QuestionActivity extends Activity {
         switch (action) {
             case RIGHT:
                 //questionBox.setText("swiped right!");
-                //questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
+                //questionBox.startAnimation(AnimationUtils.
+                // loadAnimation(this, R.anim.slide_in_left));
                 //TODO
                 updateQuestionAndResult(currentQuestion, RIGHT);
                 break;
             case LEFT:
-                //questionBox.setText("swiped left!");
-                //questionBox.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
                 //TODO
                 updateQuestionAndResult(currentQuestion, LEFT);
                 break;
@@ -195,5 +212,9 @@ public class QuestionActivity extends Activity {
 
             }
         }
+    }
+
+    public static String getTerm(){
+        return resultTerm;
     }
 }
