@@ -3,6 +3,7 @@ package com.example.yasym.ez_eats;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,10 +35,14 @@ import java.util.concurrent.ExecutionException;
  */
 public class YelpResultActivity extends AppCompatActivity {
 
+
+    private final String TITLE_FONT = "font/remachine.ttf";
+
     /**
      * Components of this class.
      */
     private ListView resultRestaurants;
+    private TextView title;
     private MyListAdapter myAdapter;
 
     /**
@@ -65,6 +70,9 @@ public class YelpResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_yelp_result);
+        Typeface tf = Typeface.createFromAsset(getAssets(), TITLE_FONT);
+        title = (TextView)this.findViewById(R.id.result_title);
+        title.setTypeface(tf);
         resultRestaurants = (ListView)this.findViewById(R.id.result_list);
 
         resultTerm = QuestionActivity.getTerm();

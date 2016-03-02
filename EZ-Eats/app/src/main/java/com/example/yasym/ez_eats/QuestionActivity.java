@@ -24,8 +24,8 @@ public class QuestionActivity extends Activity {
      * Font for the title and question.
      * Feel free to change.
      */
-    private final String FONT_PATH = "font/future.ttf";
-    private final String FONT_PATH_2 = "font/croissant.ttf";
+    private final String QUESTION_FONT = "font/remachine.ttf";
+    private final String TITLE_FONT = "font/remachine.ttf";
 
     private final int RIGHT = 0;//Indicator of swiping right.
     private final int LEFT = 1;//swiping left.
@@ -74,9 +74,9 @@ public class QuestionActivity extends Activity {
         /**
          * Set font of title and question.
          */
-        tf = Typeface.createFromAsset(getAssets(), FONT_PATH);
+        tf = Typeface.createFromAsset(getAssets(), QUESTION_FONT);
         questionBox.setTypeface(tf);
-        tf = Typeface.createFromAsset(getAssets(), FONT_PATH_2);
+        tf = Typeface.createFromAsset(getAssets(), TITLE_FONT);
         title.setTypeface(tf);
 
         /**

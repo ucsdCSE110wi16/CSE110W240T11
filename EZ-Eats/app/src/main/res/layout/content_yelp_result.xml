@@ -16,11 +16,33 @@
         android:layout_weight="1"
         android:textColor="#ffffff"
         android:textIsSelectable="false"
-        android:textSize="25dp" />
+        android:textSize="35dp" />
 
-    <ListView
+    <!--<ListView-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:id="@+id/result_list"-->
+        <!--android:layout_weight="5" />-->
+
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:id="@+id/result_list"
-        android:layout_weight="5" />
+        android:layout_weight="5"
+        android:focusable="false">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/starbackground_002_edited"/>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/result_list"
+            android:drawSelectorOnTop="false"
+            android:divider="@android:color/holo_orange_light"
+            android:dividerHeight="2px" />
+
+    </FrameLayout>
 </LinearLayout>
