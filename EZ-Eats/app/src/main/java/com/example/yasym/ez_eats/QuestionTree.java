@@ -15,7 +15,7 @@ public class QuestionTree {
 
     void ConstructTree(){
         root = new QuestionNode("Do you want a full meal?", false);
-        QuestionNode DorE = new QuestionNode("Do you want to Drink or Eat?", false);
+        QuestionNode DorE = new QuestionNode("Are you thirsty?", false);
         QuestionNode Ame_N = new QuestionNode("Do you want a hearty, protein packed meal?", false); //do you want American food
         QuestionNode Asi_N = new QuestionNode("Do you want food with lots of different spices? ", false); //do you want Asian food
         QuestionNode Eur_N = new QuestionNode("Do you want something new and exciting?", false); //do you want European food
@@ -23,8 +23,8 @@ public class QuestionTree {
         QuestionNode Asi = new QuestionNode("You might like Asian food!!",true);
         QuestionNode Eur = new QuestionNode("You might like European food!!", true);
         QuestionNode drink = new QuestionNode("You might be thirsty!", true);
-        QuestionNode eat = new QuestionNode("You're just hungry!", true);
-        QuestionNode end = new QuestionNode("Query ends!", true);
+        QuestionNode eat = new QuestionNode("You're hungry!", true);
+        QuestionNode end = new QuestionNode("I don't think you're hungry!", true);
         root.setLeft(DorE);
         DorE.setLeft(drink);
         DorE.setRight(eat);
