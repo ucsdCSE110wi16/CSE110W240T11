@@ -1,5 +1,6 @@
 package com.example.yasym.ez_eats;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +34,7 @@ import java.util.concurrent.ExecutionException;
  * This activity is opened when one of the restaurant categories is
  * selected on the previous page.
  */
-public class YelpResultActivity extends AppCompatActivity {
+public class YelpResultActivity extends Activity {
 
 
     private final String TITLE_FONT = "font/remachine.ttf";
