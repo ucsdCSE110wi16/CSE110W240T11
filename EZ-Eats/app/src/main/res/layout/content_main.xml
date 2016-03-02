@@ -81,10 +81,11 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:id="@+id/background"
-        android:src="@drawable/ez_main_2"
+        android:src="@drawable/ez_main_star_edited"
         android:adjustViewBounds="true"
         android:baselineAlignBottom="false"
         android:layout_x="0dp"
-        android:layout_y="0dp" />
+        android:layout_y="0dp"
+        android:scaleType="centerCrop" />
 </AbsoluteLayout>
 

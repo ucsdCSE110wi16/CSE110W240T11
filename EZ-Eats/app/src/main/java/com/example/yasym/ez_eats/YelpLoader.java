@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public class YelpLoader extends LoadBusinessesTask {
 
+    private final String LOG_MESSAGE = "YelpLoader: ";
+
     public YelpLoader(Activity a, String term){
         super((new Yelp(a.getApplicationContext())).setTerm(term));
 
@@ -28,6 +30,8 @@ public class YelpLoader extends LoadBusinessesTask {
         if (result == null) {
             return;
         }
+
+        Log.i(LOG_MESSAGE, result.size() + "");
     }
 
 }

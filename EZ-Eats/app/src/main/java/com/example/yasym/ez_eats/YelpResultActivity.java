@@ -1,5 +1,7 @@
 package com.example.yasym.ez_eats;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +50,12 @@ public class YelpResultActivity extends AppCompatActivity {
     private YelpLoader yLoader;
     private String resultTerm;
 
+    /**
+     * Indicates how many items to be displayed.
+     */
+    private int threshold;
+    private int currentCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,20 +76,48 @@ public class YelpResultActivity extends AppCompatActivity {
             ee.printStackTrace();
         }
 
+        /**
+         * If the returned list is empty, which means no matching restaurant is
+         * found, then take user back to the questions and restart.
+         */
+        if (business == null){
+            Log.i("ResultActivity: ", "list is empty");
+            AlertDialog.Builder dialog = new AlertDialog.Builder(YelpResultActivity.this);
+            dialog.setMessage("No result found! Back to Questions!").setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            YelpResultActivity.this.finish();
+                        }
+                    }).show();
+            return;
+        }
+
+        /**
+         * Get the threshold
+         */
+        threshold = QuestionActivity.getThreshold();
+
+        /**
+         * Set up the list to be displayed
+         */
         names = new ArrayList<>();
         images = new ArrayList<>();
         snippetText = new ArrayList<>();
         for (Business b:business){
-            names.add(b.name + " [rating=" + b.rating + "]");
-            images.add(b.image);
-            snippetText.add(b.snippetText);
+            if (currentCount < threshold) {
+                names.add(b.name + " [rating=" + b.rating + "]");
+                images.add(b.image);
+                snippetText.add(b.snippetText);
+                currentCount ++;
+            }
         }
-        
 
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,
                 R.layout.restaurant_list, names);
         resultRestaurants.setAdapter(adapter);
     }
+
 
 }

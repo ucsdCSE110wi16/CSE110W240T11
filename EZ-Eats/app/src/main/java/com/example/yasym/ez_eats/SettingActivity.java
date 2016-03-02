@@ -18,6 +18,8 @@ public class SettingActivity extends AppCompatActivity {
     private EditText threshold;
     private Button confirm;
 
+    private final int UPPER_LIMIT = 999;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,21 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (threshold.getText() != null){
-                    QuestionActivity.setThreshold(Integer.parseInt(threshold.getText().toString()));
+                    int userInput = Integer.parseInt(threshold.getText().toString());
+                    if (userInput < 0 ){
+                        Toast.makeText(SettingActivity.this, "Your input should be bigger than 0!\n" +
+                                "Please try again", Toast.LENGTH_LONG).show();
+                    }else if (userInput == 0){
+                        QuestionActivity.setThreshold(UPPER_LIMIT);
+                    }else{
+                        QuestionActivity.setThreshold(userInput);
+                    }
                     Toast.makeText(SettingActivity.this, "The threshold is: "
                             + QuestionActivity.getThreshold(), Toast.LENGTH_SHORT).show();
+                    if (QuestionActivity.getThreshold() > 10){
+                        Toast.makeText(SettingActivity.this, "Better not to be bigger than 10."
+                        , Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

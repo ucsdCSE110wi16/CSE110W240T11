@@ -47,7 +47,7 @@ public class QuestionActivity extends Activity {
     private Button setting;
 
     private static String resultTerm;
-    private static int threshold;
+    private static int threshold = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
