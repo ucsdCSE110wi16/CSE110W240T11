@@ -61,13 +61,23 @@
 
     </FrameLayout>
 
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Start Over"
-        android:id="@+id/restart"
-        android:layout_gravity="center_horizontal" />
+        android:layout_weight="0.2">
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Over"
+            android:id="@+id/restart"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferences"
+            android:id="@+id/preference" />
+    </LinearLayout>
 
 </LinearLayout>

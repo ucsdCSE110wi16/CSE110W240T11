@@ -93,4 +93,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_yelp_result">YelpResultActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
 </resources>

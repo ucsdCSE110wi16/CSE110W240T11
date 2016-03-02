@@ -44,8 +44,10 @@ public class QuestionActivity extends Activity {
     private QuestionNode currentQuestion;
     private Typeface tf;
     private Button restart;
+    private Button setting;
 
     private static String resultTerm;
+    private static int threshold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class QuestionActivity extends Activity {
         gestureDetector = new GestureDetector(this.onGestureListener);
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
         restart = (Button)this.findViewById(R.id.restart);
+        setting = (Button)this.findViewById(R.id.preference);
         tree = new QuestionTree();
 
         /**
@@ -114,6 +117,13 @@ public class QuestionActivity extends Activity {
                 listAdapter = new ArrayAdapter<String>(QuestionActivity.this,
                         R.layout.restaurant_list, resultingRestaurants);
                 restaurants.setAdapter(listAdapter);
+            }
+        });
+
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent("android.intent.action.SETTING"));
             }
         });
     }
@@ -216,5 +226,13 @@ public class QuestionActivity extends Activity {
 
     public static String getTerm(){
         return resultTerm;
+    }
+
+    public static void setThreshold(int threshold){
+        QuestionActivity.threshold = threshold;
+    }
+
+    public static int getThreshold(){
+        return threshold;
     }
 }

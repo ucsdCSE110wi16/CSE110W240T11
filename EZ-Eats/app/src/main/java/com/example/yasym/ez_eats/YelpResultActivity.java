@@ -72,7 +72,7 @@ public class YelpResultActivity extends AppCompatActivity {
         images = new ArrayList<>();
         snippetText = new ArrayList<>();
         for (Business b:business){
-            names.add(b.name);
+            names.add(b.name + " [rating=" + b.rating + "]");
             images.add(b.image);
             snippetText.add(b.snippetText);
         }
@@ -80,7 +80,7 @@ public class YelpResultActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,
-                R.layout.restaurant_list, snippetText);
+                R.layout.restaurant_list, names);
         resultRestaurants.setAdapter(adapter);
     }
 
