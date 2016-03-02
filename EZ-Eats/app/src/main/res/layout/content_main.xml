@@ -2,7 +2,7 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     tools:context="com.example.yasym.ez_eats.MainActivity">
 
     <!--<FrameLayout-->
@@ -78,13 +78,13 @@
     <!--</FrameLayout>-->
 
     <ImageView
-        android:layout_width="487dp"
-        android:layout_height="600dp"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/background"
         android:src="@drawable/ez_main_2"
         android:adjustViewBounds="true"
         android:baselineAlignBottom="false"
-        android:layout_x="-55dp"
-        android:layout_y="-20dp" />
+        android:layout_x="0dp"
+        android:layout_y="0dp" />
 </AbsoluteLayout>
 
