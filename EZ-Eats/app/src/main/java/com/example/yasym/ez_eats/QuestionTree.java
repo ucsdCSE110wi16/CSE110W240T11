@@ -15,7 +15,7 @@ public class QuestionTree {
 
     void ConstructTree(){
         root = new QuestionNode("Do you want a full meal?", false);
-        QuestionNode DorE = new QuestionNode("Are you thirsty?", false);
+        QuestionNode DorE = new QuestionNode("Do you want solid foods?", false);
         QuestionNode Ame_N = new QuestionNode("Do you want a hearty, protein packed meal?", false); //do you want American food
         QuestionNode Asi_N = new QuestionNode("Do you want food with lots of different spices? ", false); //do you want Asian food
         QuestionNode Eur_N = new QuestionNode("Do you want something new and exciting?", false); //do you want European food
