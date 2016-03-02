@@ -2,6 +2,7 @@ package com.example.yasym.ez_eats;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,10 +10,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.yasym.ez_eats.Yelp.Business;
 
@@ -117,6 +122,37 @@ public class YelpResultActivity extends AppCompatActivity {
                 = new ArrayAdapter<String>(this,
                 R.layout.restaurant_list, names);
         resultRestaurants.setAdapter(adapter);
+
+        /**
+         * When a restaurant is clicked, show its information.
+         */
+        resultRestaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO
+                view.setSelected(true);
+                Business tmp = business.get(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(YelpResultActivity.this);
+                LayoutInflater factory = LayoutInflater.from(YelpResultActivity.this);
+                View v = factory.inflate(R.layout.dialog, null);
+                alert.setView(v);
+
+                ImageView i = (ImageView)v.findViewById(R.id.picture);
+                i.setImageDrawable(tmp.image);
+                TextView t_1 = (TextView)v.findViewById(R.id.text1);
+                t_1.setText(tmp.name);
+                TextView t_2 = (TextView)v.findViewById(R.id.text2);
+                t_2.setText(tmp.location.toString());
+
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+            }
+        });
     }
 
 
