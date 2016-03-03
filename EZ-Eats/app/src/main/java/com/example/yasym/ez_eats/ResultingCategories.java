@@ -49,7 +49,11 @@ public class ResultingCategories {
         all.add("italian");
         all.add("german");
         all.add("greek");
+
+
     }
+
+
 
     public static ArrayList<String> getdrinks(){
         return drinks;

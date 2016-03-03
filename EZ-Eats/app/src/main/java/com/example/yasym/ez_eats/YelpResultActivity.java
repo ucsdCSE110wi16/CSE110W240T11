@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -45,6 +46,7 @@ public class YelpResultActivity extends Activity {
     private ListView resultRestaurants;
     private TextView title;
     private MyListAdapter myAdapter;
+    private Button homeButton;
 
     /**
      * Lists that hold different attributes of restaurants.
@@ -75,6 +77,7 @@ public class YelpResultActivity extends Activity {
         title = (TextView)this.findViewById(R.id.result_title);
         title.setTypeface(tf);
         resultRestaurants = (ListView)this.findViewById(R.id.result_list);
+        homeButton = (Button)this.findViewById(R.id.home);
 
         resultTerm = QuestionActivity.getTerm();
         yLoader = new YelpLoader(this, resultTerm);
@@ -150,6 +153,7 @@ public class YelpResultActivity extends Activity {
                 i.setImageDrawable(tmp.image);
                 TextView t_1 = (TextView)v.findViewById(R.id.text1);
                 t_1.setText(tmp.name);
+
                 TextView t_2 = (TextView)v.findViewById(R.id.text2);
                 t_2.setText(tmp.location.toString());
 
@@ -160,6 +164,13 @@ public class YelpResultActivity extends Activity {
                     }
                 }).show();
 
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YelpResultActivity.this.finish();
             }
         });
     }

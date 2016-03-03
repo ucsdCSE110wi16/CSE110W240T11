@@ -24,6 +24,7 @@ public class QuestionTree {
         QuestionNode Eur = new QuestionNode("You might like European food!!", true);
         QuestionNode drink = new QuestionNode("You might be thirsty!", true);
         QuestionNode eat = new QuestionNode("You're hungry!", true);
+        QuestionNode tmp = new QuestionNode("Added", true);
         QuestionNode end = new QuestionNode("I don't think you're hungry!", true);
         root.setLeft(DorE);
         DorE.setLeft(drink);

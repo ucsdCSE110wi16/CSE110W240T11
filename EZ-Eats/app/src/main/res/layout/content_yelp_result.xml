@@ -41,8 +41,20 @@
             android:layout_height="fill_parent"
             android:id="@+id/result_list"
             android:drawSelectorOnTop="false"
-            android:divider="@android:color/holo_orange_light"
-            android:dividerHeight="2px" />
+            android:divider="#ebdd46"
+            android:dividerHeight="6px"
+            android:layout_gravity="right|top" />
 
     </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center_horizontal"
+        android:background="#5076c2"
+        android:text="BACK"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:id="@+id/home" />
 </LinearLayout>
