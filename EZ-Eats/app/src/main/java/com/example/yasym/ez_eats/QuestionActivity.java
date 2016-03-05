@@ -41,7 +41,7 @@ public class QuestionActivity extends Activity {
     private ArrayAdapter<String> listAdapter;
     private ArrayList<String> resultingRestaurants;
 
-    //private QuestionTree tree;
+    //private QuizTree tree;
     private QuizTree tree;
 
     private QuestionNode currentQuestion;
