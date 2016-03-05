@@ -27,8 +27,8 @@ public class QuestionActivity extends Activity {
     private final String QUESTION_FONT = "font/remachine.ttf";
     private final String TITLE_FONT = "font/remachine.ttf";
 
-    private final int RIGHT = 0;//Indicator of swiping right.
-    private final int LEFT = 1;//swiping left.
+    private final int RIGHT = 1;//Indicator of swiping right.
+    private final int LEFT = 0;//swiping left.
 
     /**
      * The components of this window
@@ -40,7 +40,10 @@ public class QuestionActivity extends Activity {
     private ListView restaurants;
     private ArrayAdapter<String> listAdapter;
     private ArrayList<String> resultingRestaurants;
-    private QuestionTree tree;
+
+    //private QuestionTree tree;
+    private QuizTree tree;
+
     private QuestionNode currentQuestion;
     private Typeface tf;
     private Button restart;
@@ -63,7 +66,7 @@ public class QuestionActivity extends Activity {
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
         restart = (Button)this.findViewById(R.id.restart);
         setting = (Button)this.findViewById(R.id.preference);
-        tree = new QuestionTree();
+        tree = new QuizTree();
 
         /**
          * Set the first question to be displayed
@@ -82,7 +85,7 @@ public class QuestionActivity extends Activity {
         /**
          * Display all restaurants.
          */
-        resultingRestaurants = ResultingCategories.getAll();
+        resultingRestaurants = YelpCategories.getAll();
 
         /**
          * Initialize list adapter.

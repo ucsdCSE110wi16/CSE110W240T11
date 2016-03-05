@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class QuestionNode {
 
-    private final int LEFT = 0;
     private final int RIGHT = 1;
+    private final int LEFT = 0;
 
     private QuestionNode left;
     private QuestionNode right;

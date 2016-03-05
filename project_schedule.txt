@@ -27,4 +27,8 @@ By the end of:
             Integrate question tree with swiping function (Jason/Kallen)
             Yelp API, figure out GPS functionality (Gary)
             Integrate Yelp functionality with other parts of the app (Simon)
-   Week 10:
+   Week 10: Question Tree (Yasy)
+            Home button, UI, Testing, everything else (Jason)
+            Testing (Simon)
+            GPS feature and Google Maps API (Gary)
+            Creating home button (Kallen)
