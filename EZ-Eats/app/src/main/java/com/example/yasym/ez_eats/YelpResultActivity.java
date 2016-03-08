@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -68,6 +69,8 @@ public class YelpResultActivity extends Activity {
      */
     private int threshold;
     private int currentCount;
+
+    private String locAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +160,8 @@ public class YelpResultActivity extends Activity {
                 TextView t_2 = (TextView)v.findViewById(R.id.text2);
                 t_2.setText(tmp.location.toString());
 
+                locAddress = tmp.location.toString();
+
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -175,5 +180,16 @@ public class YelpResultActivity extends Activity {
         });
     }
 
+    public void mapOnClick(View v) {
+        Uri yelpIntentUri = Uri.parse("http://maps.google.com/maps?q=" + locAddress);
+        Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, yelpIntentUri);
+        startActivity(mapIntent);
 
+        /*Uri yelpIntentUri = Uri.parse("geo:0,0?q=" + locAddress);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, yelpIntentUri);
+        mapIntent.setPackage("com.google.android.app.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null){
+            startActivity(mapIntent);
+        }*/
+    }
 }

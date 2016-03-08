@@ -41,6 +41,14 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_VIEW" />
+
+                <data android:scheme="http://maps.google.com/maps" />
+                <!--<data android:scheme="geo" />-->
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SettingActivity"
