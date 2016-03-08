@@ -1,19 +1,10 @@
 package com.example.yasym.ez_eats.Yelp;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.yasym.ez_eats.R;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -91,7 +82,7 @@ public class Yelp {
      * @return this
      */
     public Yelp setTerm(String term) {
-        params.put("term", term);
+        setParam("term", term);
         return this;
     }
 
@@ -102,7 +93,7 @@ public class Yelp {
      */
     public Yelp setCatagories(List<String> categories) {
         if (categories.size() > 0) {
-            params.put("category_filter", TextUtils.join(",", categories));
+            setParam("category_filter", TextUtils.join(",", categories));
         }
         return this;
     }
@@ -114,7 +105,7 @@ public class Yelp {
      */
     public Yelp setRadius(int radius) {
         if (radius > 0 && radius <= 40000) {
-            params.put("radius_filter", String.valueOf(radius));
+            setParam("radius_filter", String.valueOf(radius));
         }
         return this;
     }
@@ -125,7 +116,7 @@ public class Yelp {
      */
     public Yelp setLimit(int limit) {
         if (limit > 0 && limit < 20) {
-            params.put("limit", String.valueOf(limit));
+            setParam("limit", String.valueOf(limit));
         }
         return this;
     }
@@ -143,7 +134,7 @@ public class Yelp {
      */
     public Yelp setSort(Sort sort) {
         if (sort != Sort.BEST_MATCHED) {
-            params.put("sort", String.valueOf(sort.value));
+            setParam("sort", String.valueOf(sort.value));
         }
         return this;
     }
@@ -154,7 +145,7 @@ public class Yelp {
      */
     public Yelp setOffset(int offset) {
         if (offset > 0) {
-            params.put("offset", String.valueOf(offset));
+            setParam("offset", String.valueOf(offset));
         }
         return this;
     }
@@ -165,9 +156,24 @@ public class Yelp {
      */
     public Yelp setDeals(boolean deals) {
         if (deals) {
-            params.put("deals_filter", String.valueOf(deals));
+            setParam("deals_filter", String.valueOf(deals));
         }
         return this;
+    }
+
+    /**
+     * @param loadImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
+     *                   could help reduce loading time when images are not needed.
+     */
+    public Yelp loadImages(boolean loadImages) {
+        this.deserializer.loadImages = loadImages;
+        cache = null;
+        return this;
+    }
+
+    private void setParam(String key, String value) {
+        params.put(key, value);
+        cache = null;
     }
 
     /**
@@ -176,23 +182,6 @@ public class Yelp {
      * @return a list of {@link Business}es, or null if no business was found
      */
     public List<Business> get() {
-        return get(true);
-    }
-
-    /**
-     * Get a list of businesses' data found according to the parameters provided in the ctors before.
-     *
-     * @param loadImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
-     *                   could help reduce loading time when images are not needed.
-     * @return a list of {@link Business}es, or null if no business was found
-     */
-    public List<Business> get(boolean loadImages) {
-        if (cache != null) {
-            if (!(loadImages && !deserializer.loadImages)) {
-                return cache;
-            }
-        }
-
         // throw exception if mode = Distance and not a location or geographic search?
 
         // Get location
@@ -230,7 +219,6 @@ public class Yelp {
             return null;
         }
 
-        deserializer.loadImages = loadImages;
         List<Business> bs = new ArrayList<>();
         for (JsonElement e : barr) {
             try {
@@ -245,28 +233,11 @@ public class Yelp {
         return cache;
     }
 
-    static void loadBusinessImages(Business b, JsonObject o) {
-        b.image = Utils.getImage(o, "image_url");
-        b.snippetImage = Utils.getImage(o, "snippet_image_url");
-    }
-
     static class BusinessDeserializer implements JsonDeserializer<Business> {
 
         boolean loadImages;
         Gson gson;
         Context context;
-
-        static final int[][] IDSS =
-                new int[][]{{R.drawable.stars_0, R.drawable.stars_small_0, R.drawable.stars_large_0},
-                        {R.drawable.stars_1, R.drawable.stars_small_1, R.drawable.stars_large_1},
-                        {R.drawable.stars_1_5, R.drawable.stars_small_1_5, R.drawable.stars_large_1_5},
-                        {R.drawable.stars_2, R.drawable.stars_small_2, R.drawable.stars_large_2},
-                        {R.drawable.stars_2_5, R.drawable.stars_small_2_5, R.drawable.stars_large_2_5},
-                        {R.drawable.stars_3, R.drawable.stars_small_3, R.drawable.stars_large_3},
-                        {R.drawable.stars_3_5, R.drawable.stars_small_3_5, R.drawable.stars_large_3_5},
-                        {R.drawable.stars_4, R.drawable.stars_small_4, R.drawable.stars_large_4},
-                        {R.drawable.stars_4_5, R.drawable.stars_small_4_5, R.drawable.stars_large_4_5},
-                        {R.drawable.stars_5, R.drawable.stars_small_5, R.drawable.stars_large_5}};
 
         public BusinessDeserializer(Context context) {
             this.loadImages = true;
@@ -281,18 +252,16 @@ public class Yelp {
             Business b = gson.fromJson(json, Business.class);
             // Set rating images
             if (context != null) {
-                int iRating = (int) Math.round(2 * b.rating) - 1;
-                if (!(iRating >= 1 && iRating <= 9)) {
-                    iRating = 0;
-                }
-                int[] ids = IDSS[iRating];
-                b.ratingImage = ContextCompat.getDrawable(context, ids[0]);
-                b.ratingImageSmall = ContextCompat.getDrawable(context, ids[1]);
-                b.ratingImageLarge = ContextCompat.getDrawable(context, ids[2]);
+                Drawable[] ratingImages = Utils.getRatingImages(context, b.rating);
+                b.ratingImage = ratingImages[0];
+                b.ratingImageSmall = ratingImages[1];
+                b.ratingImageLarge = ratingImages[2];
             }
             // Load images of the business
             if (loadImages) {
-                Yelp.loadBusinessImages(b, (JsonObject) json);
+                JsonObject o = (JsonObject) json;
+                b.image = Utils.getImage(o, "image_url");
+                b.snippetImage = Utils.getImage(o, "snippet_image_url");
             }
             return b;
         }

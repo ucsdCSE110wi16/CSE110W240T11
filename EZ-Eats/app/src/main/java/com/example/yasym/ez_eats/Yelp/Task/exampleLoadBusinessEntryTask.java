@@ -2,10 +2,7 @@ package com.example.yasym.ez_eats.Yelp.Task;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.yasym.ez_eats.R;
 import com.example.yasym.ez_eats.Yelp.Business;
 import com.example.yasym.ez_eats.Yelp.Yelp;
 

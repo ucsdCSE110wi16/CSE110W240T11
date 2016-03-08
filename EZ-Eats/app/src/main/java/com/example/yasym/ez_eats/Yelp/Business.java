@@ -3,9 +3,7 @@ package com.example.yasym.ez_eats.Yelp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -20,8 +18,8 @@ public class Business {
     public List<Category> categories; // Categories that this business is associated with.
 
     @SerializedName("display_phone")
-    public String displayPhone;
-    public String phone; // Phone number for this business formatted for display
+    public String displayPhone; // Phone number for this business formatted for display
+    public String phone;
     public double rating; // Rating for this business (value ranges from 1, 1.5, ... 4.5, 5)
     public Location location; // Location data for this business
     public Drawable image; // Photo for this business
