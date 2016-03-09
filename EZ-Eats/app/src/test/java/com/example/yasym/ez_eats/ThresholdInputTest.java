@@ -52,4 +52,13 @@ public class ThresholdInputTest extends ActivityUnitTestCase<SettingActivity> {
         assertEquals(QuestionActivity.getThreshold(), upperLimit);
     }
 
+    @Test
+    public void testThreshold_negative_ShouldBe_sameAsBefor(){
+
+        int bf = QuestionActivity.getThreshold();
+        editText.setText("-10");
+        confirm.performClick();
+        assertEquals(QuestionActivity.getThreshold(), bf);
+    }
+
 }
