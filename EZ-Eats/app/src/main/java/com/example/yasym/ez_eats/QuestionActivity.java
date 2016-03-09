@@ -258,6 +258,8 @@ public class QuestionActivity extends Activity {
         return resultTerm;
     }
 
+    public static void setTerm(String term) { QuestionActivity.resultTerm = term;}
+
     public static void setThreshold(int threshold){
         QuestionActivity.threshold = threshold;
     }
