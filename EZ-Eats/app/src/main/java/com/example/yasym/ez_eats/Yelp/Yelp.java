@@ -162,11 +162,11 @@ public class Yelp {
     }
 
     /**
-     * @param loadImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
-     *                   could help reduce loading time when images are not needed.
+     * @param loadingImages Whether to load {@link Business#image} and {@link Business#snippetImage} or not. It
+     *                   could help reduce loading time when images are not needed. Default is True.
      */
-    public Yelp loadImages(boolean loadImages) {
-        this.deserializer.loadImages = loadImages;
+    public Yelp setLoadingImages(boolean loadingImages) {
+        this.deserializer.loadingImages = loadingImages;
         cache = null;
         return this;
     }
@@ -235,12 +235,12 @@ public class Yelp {
 
     static class BusinessDeserializer implements JsonDeserializer<Business> {
 
-        boolean loadImages;
+        boolean loadingImages;
         Gson gson;
         Context context;
 
         public BusinessDeserializer(Context context) {
-            this.loadImages = true;
+            this.loadingImages = true;
             this.gson = new GsonBuilder().registerTypeAdapter(Category.class, new CategoryDeserializer()).
                     addDeserializationExclusionStrategy(new DrawableExclusionStrategy()).create();
             this.context = context;
@@ -258,7 +258,7 @@ public class Yelp {
                 b.ratingImageLarge = ratingImages[2];
             }
             // Load images of the business
-            if (loadImages) {
+            if (loadingImages) {
                 JsonObject o = (JsonObject) json;
                 b.image = Utils.getImage(o, "image_url");
                 b.snippetImage = Utils.getImage(o, "snippet_image_url");

@@ -4,7 +4,9 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.yasym.ez_eats.Yelp.MockYelpApiActivity;
+import com.example.yasym.ez_eats.Yelp.Yelp;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,14 @@ public class YelpApiGetTest {
     @Rule
     public ActivityTestRule<MockYelpApiActivity> mockActivityRule =
             new ActivityTestRule<>(MockYelpApiActivity.class);
+
+    @Before
+    public void setupApi() {
+        MockYelpApiActivity a = mockActivityRule.getActivity();
+        Yelp api = new Yelp(a.getApplicationContext());
+        api.setTerm("Pizza").setLimit(1);
+        a.setApi(api);
+    }
 
     static final String NAME = "Pizza on Pearl";
     static final String RATING = "4.5";

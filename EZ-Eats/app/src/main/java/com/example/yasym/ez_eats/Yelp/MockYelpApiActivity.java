@@ -11,6 +11,8 @@ import com.example.yasym.ez_eats.Yelp.Task.LoadMockYelpApiTask;
 
 public class MockYelpApiActivity extends AppCompatActivity {
 
+    private Yelp api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,12 +24,16 @@ public class MockYelpApiActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Yelp api = new Yelp(MockYelpApiActivity.this.getApplicationContext());
-                api.setTerm("Pizza").setLimit(1);
+                if (api == null) {
+                    return;
+                }
                 LoadMockYelpApiTask task = new LoadMockYelpApiTask(api, MockYelpApiActivity.this);
                 task.execute();
             }
         });
     }
 
+    public void setApi(Yelp api) {
+        this.api = api;
+    }
 }
