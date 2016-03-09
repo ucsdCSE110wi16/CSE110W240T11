@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -57,8 +58,8 @@ public class YelpApiSetTest {
 
     @Test
     public void testSettersInvalid() throws Exception {
-        assertTrue(params.containsKey("offset"));
-        assertTrue(params.containsKey("radius_filter"));
-        assertTrue(params.containsKey("limit"));
+        assertFalse(invalidParams.containsKey("offset"));
+        assertFalse(invalidParams.containsKey("radius_filter"));
+        assertFalse(invalidParams.containsKey("limit"));
     }
 }
