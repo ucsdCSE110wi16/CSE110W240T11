@@ -46,7 +46,6 @@ public class YelpResultActivity extends Activity {
      */
     private ListView resultRestaurants;
     private TextView title;
-    private MyListAdapter myAdapter;
     private Button homeButton;
 
     /**
@@ -147,21 +146,36 @@ public class YelpResultActivity extends Activity {
                 //TODO
                 view.setSelected(true);
                 Business tmp = business.get(position);
+                /**
+                 * When a restaurant is clicked. Display a dialog window showing
+                 * its picture , name and address.
+                 * Also put a "get direction" button below to let the user get
+                 * the direction to the restaurant by opening map.
+                 */
                 AlertDialog.Builder alert = new AlertDialog.Builder(YelpResultActivity.this);
                 LayoutInflater factory = LayoutInflater.from(YelpResultActivity.this);
                 View v = factory.inflate(R.layout.dialog, null);
                 alert.setView(v);
 
+                /**
+                 * Get the image of restaurant.
+                 */
                 ImageView i = (ImageView)v.findViewById(R.id.picture);
                 i.setImageDrawable(tmp.image);
+
+                /**
+                 * Get the name and address of restaurant.
+                 */
                 TextView t_1 = (TextView)v.findViewById(R.id.text1);
                 t_1.setText(tmp.name);
-
                 TextView t_2 = (TextView)v.findViewById(R.id.text2);
                 t_2.setText(tmp.location.toString());
 
                 locAddress = tmp.location.toString();
 
+                /**
+                 * Press OK to dismiss the dialog window.
+                 */
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -172,6 +186,9 @@ public class YelpResultActivity extends Activity {
             }
         });
 
+        /**
+         * Click "back" button to go back to the question.
+         */
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

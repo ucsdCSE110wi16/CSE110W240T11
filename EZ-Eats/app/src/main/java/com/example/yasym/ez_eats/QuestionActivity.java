@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class QuestionActivity extends Activity {
 
@@ -41,16 +43,18 @@ public class QuestionActivity extends Activity {
     private ArrayAdapter<String> listAdapter;
     private ArrayList<String> resultingRestaurants;
 
-    //private QuizTree tree;
     private QuizTree tree;
 
     private QuestionNode currentQuestion;
     private Typeface tf;
     private Button restart;
     private Button setting;
+    private Button randomButton;
 
     private static String resultTerm;
     private static int threshold = 999;
+
+    private AlertDialog.Builder alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class QuestionActivity extends Activity {
         restaurants = (ListView)this.findViewById(R.id.restaurantlist);
         restart = (Button)this.findViewById(R.id.restart);
         setting = (Button)this.findViewById(R.id.preference);
+        randomButton = (Button)this.findViewById(R.id.random);
         tree = new QuizTree();
 
         /**
@@ -103,7 +108,7 @@ public class QuestionActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO
                 resultTerm = (String)parent.getItemAtPosition(position);
-                AlertDialog.Builder alert = new AlertDialog.Builder(QuestionActivity.this);
+                alert = new AlertDialog.Builder(QuestionActivity.this);
                 alert.setMessage("Finding some " + resultTerm + " for you").create();
                 alert.show();
                 view.setSelected(true);
@@ -127,6 +132,20 @@ public class QuestionActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent("android.intent.action.SETTING"));
+            }
+        });
+
+        randomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+                int rand = r.nextInt(24);
+                ArrayList<String> all = YelpCategories.getAll();
+                resultTerm = all.get(rand);
+                alert = new AlertDialog.Builder(QuestionActivity.this);
+                alert.setMessage("Finding some " + resultTerm + " for you").create();
+                alert.show();
+                startActivity(new Intent("android.intent.action.YELPRESULT"));
             }
         });
     }
@@ -227,6 +246,14 @@ public class QuestionActivity extends Activity {
         }
     }
 
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     public static String getTerm(){
         return resultTerm;
     }
@@ -238,4 +265,6 @@ public class QuestionActivity extends Activity {
     public static int getThreshold(){
         return threshold;
     }
+
+    public ArrayList<String> getResultingRestaurants(){ return resultingRestaurants;}
 }

@@ -81,6 +81,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_weight="0.2">
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -88,13 +89,25 @@
             android:layout_height="wrap_content"
             android:text="Start Over"
             android:id="@+id/restart"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Preferences"
-            android:id="@+id/preference" />
+            android:id="@+id/preference"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go Random"
+            android:id="@+id/random"
+            android:layout_gravity="right"
+            android:visibility="visible"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>
